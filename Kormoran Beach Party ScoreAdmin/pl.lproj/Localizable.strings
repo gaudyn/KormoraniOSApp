@@ -1,0 +1,11 @@
+"refresherString" = "Odświeżanie...";
+"noInternet" = "Brak internetu";
+"noInternetMessage" = "Aby wczytać turnieje należy połączyć się z internetem";
+"okString" = "OK";
+"tableViewEmpty" = "Ups, wygląda na to, że niczego tu nie ma :(";
+"cancelAction" = "Anuluj";
+"tournamentStartTitle" = "Rozpocząć turniej?";
+"tournamentStartMessage" = "Aby aktualizować punktację należy rozpocząć turniej. Czy chcesz to zrobić?";
+"noConnectionAlertTitle" = "Brak połączenia z serwisem";
+"noConnectionAlertMessage" = "Wystąpił błąd z połączeniem z serwisem. Spróbuj ponownie później.";
+"soon" = "Już wkrótce :)";

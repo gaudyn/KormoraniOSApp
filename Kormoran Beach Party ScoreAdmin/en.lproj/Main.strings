@@ -1,0 +1,105 @@
+
+/* Class = "UITabBarItem"; title = "Powiadomienia"; ObjectID = "1BD-1Z-wDQ"; */
+"1BD-1Z-wDQ.title" = "Notifications";
+
+/* Class = "UILabel"; text = "Nazwa turnieju"; ObjectID = "A7Y-ZO-NfA"; */
+"A7Y-ZO-NfA.text" = "Nazwa turnieju";
+
+/* Class = "UITabBarItem"; title = "Turnieje"; ObjectID = "Ath-lC-RCF"; */
+"Ath-lC-RCF.title" = "Turnieje";
+
+/* Class = "UILabel"; text = "Przykładowe ustawienie 2"; ObjectID = "KjC-ee-CuM"; */
+"KjC-ee-CuM.text" = "Przykładowe ustawienie 2";
+
+/* Class = "UILabel"; text = "Player 1"; ObjectID = "LEL-yI-rOn"; */
+"LEL-yI-rOn.text" = "Player 1";
+
+/* Class = "UILabel"; text = "Stan"; ObjectID = "LKa-Sk-fwP"; */
+"LKa-Sk-fwP.text" = "Stan";
+
+/* Class = "UILabel"; text = "Przykładowe ustawienie 2"; ObjectID = "M2f-uc-Y8j"; */
+"M2f-uc-Y8j.text" = "Przykładowe ustawienie 2";
+
+/* Class = "UILabel"; text = "Bardzo długa wiadomość, taka testowa, żeby się ładnie wyświetlała. Może byc jeszcze dłuższa"; ObjectID = "NRU-ia-jQ4"; */
+"NRU-ia-jQ4.text" = "Bardzo długa wiadomość, taka testowa, żeby się ładnie wyświetlała. Może byc jeszcze dłuższa";
+
+/* Class = "UILabel"; text = "Zespoły"; ObjectID = "NRr-Ze-tbd"; */
+"NRr-Ze-tbd.text" = "Zespoły";
+
+/* Class = "UINavigationItem"; title = "Turnieje"; ObjectID = "Ni4-ev-zrI"; */
+"Ni4-ev-zrI.title" = "Turnieje";
+
+/* Class = "UINavigationItem"; title = "Ustawienia"; ObjectID = "O5k-pt-hD6"; */
+"O5k-pt-hD6.title" = "Ustawienia";
+
+/* Class = "UILabel"; text = "VS"; ObjectID = "OBt-kT-meV"; */
+"OBt-kT-meV.text" = "VS";
+
+/* Class = "UINavigationItem"; title = "Nazwa Turnieju"; ObjectID = "TmV-Jz-S7a"; */
+"TmV-Jz-S7a.title" = "Nazwa Turnieju";
+
+/* Class = "UINavigationItem"; title = "Wiadomości"; ObjectID = "Unj-7h-OXS"; */
+"Unj-7h-OXS.title" = "Wiadomości";
+
+/* Class = "UILabel"; text = "Od:"; ObjectID = "YCx-of-UjO"; */
+"YCx-of-UjO.text" = "Od:";
+
+/* Class = "UILabel"; text = "Player 2"; ObjectID = "Z6f-gq-RY8"; */
+"Z6f-gq-RY8.text" = "Player 2";
+
+/* Class = "UITabBarItem"; title = "Wiadomości"; ObjectID = "ZuR-fc-6A6"; */
+"ZuR-fc-6A6.title" = "Wiadomości";
+
+/* Class = "UITableViewSection"; headerTitle = "Nasze social media"; ObjectID = "aTH-W4-Rm2"; */
+"aTH-W4-Rm2.headerTitle" = "Nasze social media";
+
+/* Class = "UITextField"; placeholder = "0"; ObjectID = "aXJ-cH-Bwc"; */
+"aXJ-cH-Bwc.placeholder" = "0";
+
+/* Class = "UITableViewSection"; headerTitle = "Logowanie do serwisu"; ObjectID = "bdl-op-SiR"; */
+"bdl-op-SiR.headerTitle" = "Logowanie do serwisu";
+
+/* Class = "UILabel"; text = "Player 2 Score:"; ObjectID = "blH-LR-g4N"; */
+"blH-LR-g4N.text" = "Player 2 Score:";
+
+/* Class = "UITabBarItem"; title = "Ustawienia"; ObjectID = "eM2-bi-R5i"; */
+"eM2-bi-R5i.title" = "Ustawienia";
+
+/* Class = "UILabel"; text = "Mecz pomiędzy I LO a II LO w turnieju Siatkówka Dziewcząt Gimnazja właśnie się zakończył. Wynik to 10 - 4"; ObjectID = "f9Q-er-ieq"; */
+"f9Q-er-ieq.text" = "Mecz pomiędzy I LO a II LO w turnieju Siatkówka Dziewcząt Gimnazja właśnie się zakończył. Wynik to 10 - 4";
+
+/* Class = "UILabel"; text = "0 : 0"; ObjectID = "fIJ-1f-dTf"; */
+"fIJ-1f-dTf.text" = "0 : 0";
+
+/* Class = "UINavigationItem"; title = "Powiadomienia"; ObjectID = "gyU-XC-87s"; */
+"gyU-XC-87s.title" = "Powiadomienia";
+
+/* Class = "UILabel"; text = "Wygrana"; ObjectID = "iVW-GV-kho"; */
+"iVW-GV-kho.text" = "Wygrana";
+
+/* Class = "UILabel"; text = "Jan Nowak"; ObjectID = "jah-dw-JmK"; */
+"jah-dw-JmK.text" = "Jan Nowak";
+
+/* Class = "UINavigationItem"; title = "Detale meczu"; ObjectID = "m7t-3e-xnm"; */
+"m7t-3e-xnm.title" = "Detale meczu";
+
+/* Class = "UINavigationItem"; title = "Zespoły"; ObjectID = "qRA-gf-Z1f"; */
+"qRA-gf-Z1f.title" = "Zespoły";
+
+/* Class = "UILabel"; text = "nadawca"; ObjectID = "qSe-i9-Sdd"; */
+"qSe-i9-Sdd.text" = "nadawca";
+
+/* Class = "UILabel"; text = "Przykładowe ustawienie 1"; ObjectID = "qsi-iG-omO"; */
+"qsi-iG-omO.text" = "Przykładowe ustawienie 1";
+
+/* Class = "UITextField"; placeholder = "0"; ObjectID = "sgA-jo-tcp"; */
+"sgA-jo-tcp.placeholder" = "0";
+
+/* Class = "UILabel"; text = "Player 1 Score:"; ObjectID = "sv3-5Q-1SY"; */
+"sv3-5Q-1SY.text" = "Player 1 Score:";
+
+/* Class = "UITableViewSection"; headerTitle = "Podstawowe ustawienia"; ObjectID = "vby-pa-Qwk"; */
+"vby-pa-Qwk.headerTitle" = "Podstawowe ustawienia";
+
+/* Class = "UILabel"; text = "Oznaczyć wygranego?"; ObjectID = "wD3-LT-7gH"; */
+"wD3-LT-7gH.text" = "Oznaczyć wygranego?";

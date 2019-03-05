@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" ~> 4.5
+github "jrendel/SwiftKeychainWrapper" ~> 3.0
+github "saoudrizwan/Disk"
+github "krzyzanowskim/CryptoSwift"

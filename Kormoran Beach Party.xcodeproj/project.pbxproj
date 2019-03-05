@@ -1,0 +1,758 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C31425F920C5863400564C38 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31425F820C5863400564C38 /* NotificationsTableViewController.swift */; };
+		C31425FB20C586C900564C38 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31425FA20C586C900564C38 /* MessagesTableViewController.swift */; };
+		C34E9468209F7546005F0500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34E9467209F7546005F0500 /* SettingsView.swift */; };
+		C37BE73020AF699200C1F749 /* Disk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37BE72F20AF699200C1F749 /* Disk.framework */; };
+		C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */; };
+		C3A2A40220279626001FED80 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39B34B120266CA60031C435 /* Alamofire.framework */; };
+		C3A2A40420279626001FED80 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */; };
+		C3A345661F1E91E80034DEF2 /* Logins.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A345651F1E91E80034DEF2 /* Logins.swift */; };
+		C3A3C426222B403F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
+		C3A3C451222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */; };
+		C3A3C459222B457F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
+		C3B9258220CDC8C400FDA111 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B9258120CDC8C400FDA111 /* CryptoSwift.framework */; };
+		C3DA0D991F09752E00D99CC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0D981F09752E00D99CC4 /* AppDelegate.swift */; };
+		C3DA0DA01F09752E00D99CC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3DA0D9E1F09752E00D99CC4 /* Main.storyboard */; };
+		C3DA0DA21F09752E00D99CC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3DA0DA11F09752E00D99CC4 /* Assets.xcassets */; };
+		C3DA0DA51F09752E00D99CC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3DA0DA31F09752E00D99CC4 /* LaunchScreen.storyboard */; };
+		C3DA0DC91F097E2E00D99CC4 /* Turniej.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0DC81F097E2E00D99CC4 /* Turniej.swift */; };
+		C3DA0DCB1F097FC700D99CC4 /* TurniejTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0DCA1F097FC700D99CC4 /* TurniejTableViewCell.swift */; };
+		C3DA0DCD1F09807F00D99CC4 /* TurniejeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0DCC1F09807F00D99CC4 /* TurniejeTableViewController.swift */; };
+		C3DA0DCF1F09AF2100D99CC4 /* Mecz.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0DCE1F09AF2100D99CC4 /* Mecz.swift */; };
+		C3DA0DD11F09B25E00D99CC4 /* MeczeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0DD01F09B25E00D99CC4 /* MeczeTableViewController.swift */; };
+		C3DA0DD31F09BB6500D99CC4 /* MeczeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0DD21F09BB6500D99CC4 /* MeczeTableViewCell.swift */; };
+		C3DF0F3520AB8D7300CAF494 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3DF0F3720AB8D7300CAF494 /* Localizable.strings */; };
+		C3F05A5A1F17A15C00C2333C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F05A591F17A15C00C2333C /* Reachability.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C3A3C453222B455400C67CA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3DA0D8D1F09752D00D99CC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3DA0D941F09752E00D99CC4;
+			remoteInfo = "Kormoran Beach Party";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C31425F820C5863400564C38 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
+		C31425FA20C586C900564C38 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
+		C34E9467209F7546005F0500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C36C1268222B2CBE00AE8760 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		C37BE72F20AF699200C1F749 /* Disk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Disk.framework; path = Carthage/Build/iOS/Disk.framework; sourceTree = "<group>"; };
+		C38370A81F37D706005A46D6 /* Kormoran Beach Party.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Kormoran Beach Party.entitlements"; sourceTree = "<group>"; };
+		C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetaleMeczuViewController.swift; sourceTree = "<group>"; };
+		C39B34B120266CA60031C435 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
+		C3A345651F1E91E80034DEF2 /* Logins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logins.swift; sourceTree = "<group>"; };
+		C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kormoran Beach Party Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kormoran_Beach_Party_Tests.swift; sourceTree = "<group>"; };
+		C3A3C452222B455400C67CA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3A3E0271F71AC8400453116 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		C3A3E0281F71AC8400453116 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C3B9258120CDC8C400FDA111 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
+		C3C67ED520B7512D00C5C0C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C3DA0D951F09752E00D99CC4 /* Kormoran Beach Party.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kormoran Beach Party.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3DA0D981F09752E00D99CC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C3DA0D9F1F09752E00D99CC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C3DA0DA11F09752E00D99CC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C3DA0DA41F09752E00D99CC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C3DA0DA61F09752E00D99CC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3DA0DC81F097E2E00D99CC4 /* Turniej.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turniej.swift; sourceTree = "<group>"; };
+		C3DA0DCA1F097FC700D99CC4 /* TurniejTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurniejTableViewCell.swift; sourceTree = "<group>"; };
+		C3DA0DCC1F09807F00D99CC4 /* TurniejeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurniejeTableViewController.swift; sourceTree = "<group>"; };
+		C3DA0DCE1F09AF2100D99CC4 /* Mecz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mecz.swift; sourceTree = "<group>"; };
+		C3DA0DD01F09B25E00D99CC4 /* MeczeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeczeTableViewController.swift; sourceTree = "<group>"; };
+		C3DA0DD21F09BB6500D99CC4 /* MeczeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeczeTableViewCell.swift; sourceTree = "<group>"; };
+		C3DF0F3220AB8D2500CAF494 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C3DF0F3620AB8D7300CAF494 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3DF0F3820AB8D7400CAF494 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3DF0F3920AB8EC600CAF494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3F05A591F17A15C00C2333C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C3A3C44B222B455400C67CA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3DA0D921F09752E00D99CC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C37BE73020AF699200C1F749 /* Disk.framework in Frameworks */,
+				C3A2A40420279626001FED80 /* SwiftKeychainWrapper.framework in Frameworks */,
+				C3A2A40220279626001FED80 /* Alamofire.framework in Frameworks */,
+				C3B9258220CDC8C400FDA111 /* CryptoSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C3A3C44F222B455400C67CA3 /* Kormoran Beach Party Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */,
+				C3A3C452222B455400C67CA3 /* Info.plist */,
+			);
+			path = "Kormoran Beach Party Tests";
+			sourceTree = "<group>";
+		};
+		C3A3E02C1F71B8F200453116 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3B9258120CDC8C400FDA111 /* CryptoSwift.framework */,
+				C37BE72F20AF699200C1F749 /* Disk.framework */,
+				C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */,
+				C39B34B120266CA60031C435 /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3DA0D8C1F09752D00D99CC4 = {
+			isa = PBXGroup;
+			children = (
+				C38370A81F37D706005A46D6 /* Kormoran Beach Party.entitlements */,
+				C3DA0D971F09752E00D99CC4 /* Kormoran Beach Party ScoreAdmin */,
+				C3A3C44F222B455400C67CA3 /* Kormoran Beach Party Tests */,
+				C3DA0D961F09752E00D99CC4 /* Products */,
+				C3A3E02C1F71B8F200453116 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C3DA0D961F09752E00D99CC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3DA0D951F09752E00D99CC4 /* Kormoran Beach Party.app */,
+				C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C3DA0D971F09752E00D99CC4 /* Kormoran Beach Party ScoreAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				C3DA0DA11F09752E00D99CC4 /* Assets.xcassets */,
+				C36C1268222B2CBE00AE8760 /* API.swift */,
+				C3DA0D981F09752E00D99CC4 /* AppDelegate.swift */,
+				C3DA0DC81F097E2E00D99CC4 /* Turniej.swift */,
+				C3DA0DCE1F09AF2100D99CC4 /* Mecz.swift */,
+				C3F05A591F17A15C00C2333C /* Reachability.swift */,
+				C3A345651F1E91E80034DEF2 /* Logins.swift */,
+				C3DA0DCA1F097FC700D99CC4 /* TurniejTableViewCell.swift */,
+				C3DA0DCC1F09807F00D99CC4 /* TurniejeTableViewController.swift */,
+				C3DA0DD01F09B25E00D99CC4 /* MeczeTableViewController.swift */,
+				C3DA0DD21F09BB6500D99CC4 /* MeczeTableViewCell.swift */,
+				C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */,
+				C34E9467209F7546005F0500 /* SettingsView.swift */,
+				C3DA0D9E1F09752E00D99CC4 /* Main.storyboard */,
+				C31425FA20C586C900564C38 /* MessagesTableViewController.swift */,
+				C31425F820C5863400564C38 /* NotificationsTableViewController.swift */,
+				C3DA0DA31F09752E00D99CC4 /* LaunchScreen.storyboard */,
+				C3DA0DA61F09752E00D99CC4 /* Info.plist */,
+				C3DF0F3720AB8D7300CAF494 /* Localizable.strings */,
+			);
+			path = "Kormoran Beach Party ScoreAdmin";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C3A3C44D222B455400C67CA3 /* Kormoran Beach Party Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3A3C455222B455400C67CA3 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party Tests" */;
+			buildPhases = (
+				C3A3C44A222B455400C67CA3 /* Sources */,
+				C3A3C44B222B455400C67CA3 /* Frameworks */,
+				C3A3C44C222B455400C67CA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3A3C454222B455400C67CA3 /* PBXTargetDependency */,
+			);
+			name = "Kormoran Beach Party Tests";
+			productName = "Kormoran Beach Party Tests";
+			productReference = C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C3DA0D941F09752E00D99CC4 /* Kormoran Beach Party */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3DA0DBF1F09752E00D99CC4 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party" */;
+			buildPhases = (
+				C3A2A40520279636001FED80 /* Carthage */,
+				C3DA0D921F09752E00D99CC4 /* Frameworks */,
+				C3DA0D911F09752E00D99CC4 /* Sources */,
+				C3DA0D931F09752E00D99CC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Kormoran Beach Party";
+			productName = "Kormoran Beach Party ScoreAdmin";
+			productReference = C3DA0D951F09752E00D99CC4 /* Kormoran Beach Party.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C3DA0D8D1F09752D00D99CC4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Kormoran Beach Party Sekcja Informatyczna";
+				TargetAttributes = {
+					C3A3C44D222B455400C67CA3 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = AV9DM695WT;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C3DA0D941F09752E00D99CC4;
+					};
+					C3DA0D941F09752E00D99CC4 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AV9DM695WT;
+						LastSwiftMigration = 1010;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C3DA0D901F09752D00D99CC4 /* Build configuration list for PBXProject "Kormoran Beach Party" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C3DA0D8C1F09752D00D99CC4;
+			productRefGroup = C3DA0D961F09752E00D99CC4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C3DA0D941F09752E00D99CC4 /* Kormoran Beach Party */,
+				C3A3C44D222B455400C67CA3 /* Kormoran Beach Party Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C3A3C44C222B455400C67CA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3DA0D931F09752E00D99CC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3DA0DA51F09752E00D99CC4 /* LaunchScreen.storyboard in Resources */,
+				C3DF0F3520AB8D7300CAF494 /* Localizable.strings in Resources */,
+				C3DA0DA21F09752E00D99CC4 /* Assets.xcassets in Resources */,
+				C3DA0DA01F09752E00D99CC4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C3A2A40520279636001FED80 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Disk.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Disk.framework",
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C3A3C44A222B455400C67CA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3A3C459222B457F00C67CA3 /* API.swift in Sources */,
+				C3A3C451222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3DA0D911F09752E00D99CC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3DA0DD11F09B25E00D99CC4 /* MeczeTableViewController.swift in Sources */,
+				C3A345661F1E91E80034DEF2 /* Logins.swift in Sources */,
+				C31425F920C5863400564C38 /* NotificationsTableViewController.swift in Sources */,
+				C3DA0DCF1F09AF2100D99CC4 /* Mecz.swift in Sources */,
+				C3DA0DCB1F097FC700D99CC4 /* TurniejTableViewCell.swift in Sources */,
+				C3DA0DC91F097E2E00D99CC4 /* Turniej.swift in Sources */,
+				C3A3C426222B403F00C67CA3 /* API.swift in Sources */,
+				C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */,
+				C31425FB20C586C900564C38 /* MessagesTableViewController.swift in Sources */,
+				C3F05A5A1F17A15C00C2333C /* Reachability.swift in Sources */,
+				C3DA0DD31F09BB6500D99CC4 /* MeczeTableViewCell.swift in Sources */,
+				C34E9468209F7546005F0500 /* SettingsView.swift in Sources */,
+				C3DA0D991F09752E00D99CC4 /* AppDelegate.swift in Sources */,
+				C3DA0DCD1F09807F00D99CC4 /* TurniejeTableViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C3A3C454222B455400C67CA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3DA0D941F09752E00D99CC4 /* Kormoran Beach Party */;
+			targetProxy = C3A3C453222B455400C67CA3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C3DA0D9E1F09752E00D99CC4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3DA0D9F1F09752E00D99CC4 /* Base */,
+				C3A3E0271F71AC8400453116 /* pl */,
+				C3C67ED520B7512D00C5C0C0 /* en */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C3DA0DA31F09752E00D99CC4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3DA0DA41F09752E00D99CC4 /* Base */,
+				C3A3E0281F71AC8400453116 /* pl */,
+				C3DF0F3220AB8D2500CAF494 /* en */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C3DF0F3720AB8D7300CAF494 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3DF0F3620AB8D7300CAF494 /* pl */,
+				C3DF0F3820AB8D7400CAF494 /* en */,
+				C3DF0F3920AB8EC600CAF494 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C36C127A222B37A900AE8760 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Testing;
+		};
+		C36C127B222B37A900AE8760 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Kormoran Beach Party ScoreAdmin/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Testing;
+		};
+		C3A3C456222B455400C67CA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Kormoran Beach Party Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach-Party-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kormoran Beach Party.app/Kormoran Beach Party";
+			};
+			name = Debug;
+		};
+		C3A3C457222B455400C67CA3 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Kormoran Beach Party Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach-Party-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kormoran Beach Party.app/Kormoran Beach Party";
+			};
+			name = Testing;
+		};
+		C3A3C458222B455400C67CA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Kormoran Beach Party Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach-Party-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kormoran Beach Party.app/Kormoran Beach Party";
+			};
+			name = Release;
+		};
+		C3DA0DBD1F09752E00D99CC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C3DA0DBE1F09752E00D99CC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C3DA0DC01F09752E00D99CC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Kormoran Beach Party ScoreAdmin/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C3DA0DC11F09752E00D99CC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Kormoran\\ Beach\\ Party\\ ScoreAdmin",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "Kormoran Beach Party ScoreAdmin/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C3A3C455222B455400C67CA3 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3A3C456222B455400C67CA3 /* Debug */,
+				C3A3C457222B455400C67CA3 /* Testing */,
+				C3A3C458222B455400C67CA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3DA0D901F09752D00D99CC4 /* Build configuration list for PBXProject "Kormoran Beach Party" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3DA0DBD1F09752E00D99CC4 /* Debug */,
+				C36C127A222B37A900AE8760 /* Testing */,
+				C3DA0DBE1F09752E00D99CC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3DA0DBF1F09752E00D99CC4 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3DA0DC01F09752E00D99CC4 /* Debug */,
+				C36C127B222B37A900AE8760 /* Testing */,
+				C3DA0DC11F09752E00D99CC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C3DA0D8D1F09752D00D99CC4 /* Project object */;
+}

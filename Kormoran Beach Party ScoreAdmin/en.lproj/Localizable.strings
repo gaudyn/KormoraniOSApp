@@ -1,0 +1,11 @@
+"refresherString" = "Refreshing...";
+"noInternet" = "No Internet access";
+"noInternetMessage" = "You need Internet access to load tournaments";
+"okString" = "OK";
+"tableViewEmpty" = "Oopsie, It looks like it's empty :(";
+"cancelAction" = "Cancel";
+"tournamentStartTitle" = "Do you want to start the tournament?";
+"tournamentStartMessage" = "To update tournament's scores you have to start it first. Do you wish to continue?";
+"noConnectionAlertTitle" = "No connection with the website";
+"noConnectionAlertMessage" = "An error occured with connecting to the website. Try again later.";
+"soon" = "Coming soon :)";

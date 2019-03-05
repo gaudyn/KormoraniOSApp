@@ -1,0 +1,101 @@
+//
+//  API.swift
+//  Kormoran Beach Party
+//
+//  Created by Administrator on 02/03/2019.
+//  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+import SwiftKeychainWrapper
+
+class API {
+    let url = "https://code.legnica.pl/kormoran/api"
+    let subUrls = [
+        "tournaments" : "/tournaments.php",
+        "matches" : "/matches.php"
+    ]
+    
+    // SPRAWDZA POŁĄCZENIE Z API, true: połączono, false: brak połączenia
+    func checkConnection() -> Bool{
+        let tournamentsURL = url+subUrls["tournaments"]!
+        var httpRequest = URLRequest(url: URL(string: tournamentsURL)!)
+        
+        httpRequest.httpMethod = "GET"
+        var Success = true
+        let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.main.async {
+                if let httpResponse = response as? HTTPURLResponse{
+                    if httpResponse.statusCode != 200{
+                        Success = false
+                        return
+                    }
+                }
+                if error != nil{
+                    Success = false
+                    return
+                }
+            }
+        }
+        task.resume()
+        return Success
+    }
+    
+    // ZWRACA TABLICĘ TURNIEJÓW Z API
+    func loadTournaments() -> [Turniej]{
+        let tournamentsURL = url+subUrls["tournaments"]!
+        var httpRequest = URLRequest(url: URL(string: tournamentsURL)!)
+        
+        httpRequest.httpMethod = "GET"
+        
+        var tournaments: [Turniej]!
+        
+        
+        let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.main.async {
+            if let httpResponse = response as? HTTPURLResponse{
+                if httpResponse.statusCode != 200{
+                    return
+                }
+            }
+            if error != nil{
+                return
+            }
+            else{
+                if let content = data{
+                    
+                    // SERIALIZACJA JSONA
+                    let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
+                    
+                    if let jsonTournaments = json??["tournaments"] as? [[String: Any]]{
+                        for tournament in jsonTournaments{
+                            var status = "undefined"
+                            // USTAWIANIE STATUSU TURNIEJU
+                            if(tournament["state"] as? String == "ready-to-play"){
+                                status = "Oczekujący"
+                            }
+                            if(tournament["state"] as? String == "active"){
+                                status = "Trwający"
+                            }
+                            if(tournament["state"] as? String == "complete"){
+                                status = "Zakończony"
+                            }
+                            // TWORZENIE NOWEGO TURNIEJU
+                            let turniej = Turniej(name: tournament["rep_name"] as? String, game: tournament["game"] as? String, state: status, id: tournament["name"] as? String, ties: false)
+                            
+                            // DODAWANIE TURNIEJU DO TABLICY I PRZEŁADOWANIE TABELI
+                            if turniej != nil{
+                                tournaments += [turniej!]
+                                tournaments.sort(by: {$0.weight! > $1.weight!})
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        }
+        
+        task.resume()
+        return tournaments
+    }
+    
+}
