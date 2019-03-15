@@ -282,6 +282,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
                 return
             }
             self.tournaments = tours!
+            self.tournaments.sort(by: {$0.weight! > $1.weight!})
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
