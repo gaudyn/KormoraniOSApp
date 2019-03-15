@@ -275,80 +275,17 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     
     //MARK: Private Methods
     private func loadChallongeTournaments(){
-        
-        // USTAWIANIE URL SERWERA
-        var url: String!
-        if (KeychainWrapper.standard.string(forKey: "USER_LOGIN") != nil && KeychainWrapper.standard.string(forKey: "USER_PASS") != nil){
-            url = "https://code.legnica.pl/kormoran/api/tournaments.php?username=\(KeychainWrapper.standard.string(forKey: "USER_LOGIN")!)&password=\(KeychainWrapper.standard.string(forKey: "USER_PASS")!)"
-        }else{
-            url = "https://code.legnica.pl/kormoran/api/tournaments.php"
-        }
-        var request = URLRequest(url: URL(string: url!)!)
-        
-        request.httpMethod = "GET"
-        
-        // ZADANIE HTTP ODEBRANIA DANYCH Z SERWERA
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            DispatchQueue.main.async {
-                if let httpResponse = response as? HTTPURLResponse{
-                    if httpResponse.statusCode != 200{
-                    let alert = UIAlertController(title: NSLocalizedString("noConnectionAlertTitle", comment: "no connection to service title alert"), message: NSLocalizedString("noConnectionAlertMessage", comment: "no connection to service title message"), preferredStyle: UIAlertController.Style.alert)
-                    let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                        return
-                    }
-                }
-                if error != nil{
-                    let alert = UIAlertController(title: NSLocalizedString("noConnectionAlertTitle", comment: "no connection to service title alert"), message: NSLocalizedString("noConnectionAlertMessage", comment: "no connection to service title message"), preferredStyle: UIAlertController.Style.alert)
-                    let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else{
-                    // ODEBRANO DANE Z SERWERA
-                    if let content = data{
-                        print(content)
-                        // SERIALIZACJA JSONA
-                        let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
-                       
-                        if let jsonTournaments = json??["tournaments"] as? [[String: Any]]{
-                            print("JSON:")
-                            print(jsonTournaments)
-                            for tournament in jsonTournaments{
-                                var status = "undefined"
-                                // USTAWIANIE STATUSU TURNIEJU
-                                if(tournament["state"] as? String == "ready-to-play"){
-                                    status = "Oczekujący"
-                                }
-                                if(tournament["state"] as? String == "active"){
-                                    status = "Trwający"
-                                }
-                                if(tournament["state"] as? String == "complete"){
-                                    status = "Zakończony"
-                                }
-                                // USTAWIANIE MOŻLIWOŚCI REMISÓW
-                                var ties = false
-                                // TWORZENIE NOWEGO TURNIEJU
-                                let turniej = Turniej(name: tournament["rep_name"] as? String, game: tournament["game"] as? String, state: status, id: tournament["name"] as? String, ties: ties)
-                                
-                                // DODAWANIE TURNIEJU DO TABLICY I PRZEŁADOWANIE TABELI
-                                if turniej != nil{
-                                    self.tournaments += [turniej!]
-                                    self.tournaments.sort(by: {$0.weight! > $1.weight!})
-                                    self.tableView.reloadData()
-                                }
-                            }
-                        }else{
-                            let alert = UIAlertController(title: NSLocalizedString("noConnectionAlertTitle", comment: "no connection to service title alert"), message: NSLocalizedString("noConnectionAlertMessage", comment: "no connection to service title message"), preferredStyle: UIAlertController.Style.alert)
-                            let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                    }
-                }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        API().loadTournaments(callback: {(tours, error) in
+            guard error == nil && tours != nil else{
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return
             }
-        }
-        task.resume()
+            self.tournaments = tours!
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            })
     }
 }

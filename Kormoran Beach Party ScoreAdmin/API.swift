@@ -42,23 +42,23 @@ class API {
     }
     
     // ZWRACA TABLICĘ TURNIEJÓW Z API
-    func loadTournaments() -> [Turniej]{
-        let tournamentsURL = url+subUrls["tournaments"]!
+    func loadTournaments(callback: @escaping (_ turnieje: [Turniej]?, _ error: Error?) -> Void){
+        var tournamentsURL = url+subUrls["tournaments"]!
+        if let username = KeychainWrapper.standard.string(forKey: "USER_LOGIN"), let password =  KeychainWrapper.standard.string(forKey: "USER_PASS"){
+            tournamentsURL+="?username=\(username)&password=\(password)"
+        }
         var httpRequest = URLRequest(url: URL(string: tournamentsURL)!)
         
         httpRequest.httpMethod = "GET"
-        
-        var tournaments: [Turniej]!
-        
-        
-        let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.main.async {
+    
+        let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.global(qos: .utility).async {
             if let httpResponse = response as? HTTPURLResponse{
                 if httpResponse.statusCode != 200{
-                    return
+                    callback(nil, error)
                 }
             }
             if error != nil{
-                return
+                callback(nil, error)
             }
             else{
                 if let content = data{
@@ -67,6 +67,7 @@ class API {
                     let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
                     
                     if let jsonTournaments = json??["tournaments"] as? [[String: Any]]{
+                        var tournaments = [Turniej]()
                         for tournament in jsonTournaments{
                             var status = "undefined"
                             // USTAWIANIE STATUSU TURNIEJU
@@ -81,21 +82,20 @@ class API {
                             }
                             // TWORZENIE NOWEGO TURNIEJU
                             let turniej = Turniej(name: tournament["rep_name"] as? String, game: tournament["game"] as? String, state: status, id: tournament["name"] as? String, ties: false)
-                            
-                            // DODAWANIE TURNIEJU DO TABLICY I PRZEŁADOWANIE TABELI
+                            // DODAWANIE TURNIEJU DO TABLICY
                             if turniej != nil{
-                                tournaments += [turniej!]
-                                tournaments.sort(by: {$0.weight! > $1.weight!})
+                                tournaments.append(turniej!)
                             }
                         }
+                        //tournaments.sort(by: {$0.weight! > $1.weight!})
+                        callback(tournaments, nil)
                     }
                 }
             }
+            callback(nil, error)
             }
         }
-        
         task.resume()
-        return tournaments
     }
     
 }
