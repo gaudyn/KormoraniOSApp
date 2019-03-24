@@ -191,9 +191,7 @@ class API {
         request.httpMethod = "POST"
         
         do {
-            let Json = try JSONSerialization.data(withJSONObject: parameters, options: [])
-            request.httpBody = Json
-            print(try? JSONSerialization.jsonObject(with: Json, options: []))
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
         }catch{
             print(error.localizedDescription)
         }
@@ -205,9 +203,6 @@ class API {
 
         let task = URLSession.shared.dataTask(with: request){(data, response, error) in
             DispatchQueue.global(qos: .utility).async {
-                if let content = data, let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]{
-                    print(json)
-                }
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
                     callback(APIError(kind: .invalidStatusCode))
                 }
@@ -261,7 +256,7 @@ class API {
                 callback(nil)
             }
         }
-        
+        task.resume()
         
     }
     
