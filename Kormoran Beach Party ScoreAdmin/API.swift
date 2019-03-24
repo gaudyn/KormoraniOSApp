@@ -7,14 +7,24 @@
 //
 
 import Foundation
-import Alamofire
 import SwiftKeychainWrapper
+
+struct APIError: Error{
+    enum ErrorKind{
+        case missingParameters
+        case forbiddenAccess
+        case invalidStatusCode
+        case invalidLoginOrPass
+    }
+    let kind: ErrorKind
+}
 
 class API {
     let url = "https://code.legnica.pl/kormoran/api"
     let subUrls = [
         "tournaments" : "/tournaments.php",
-        "matches" : "/matches.php"
+        "matches" : "/matches.php",
+        "administrate" : "/administrate.php"
     ]
     
     // TODO
@@ -55,7 +65,7 @@ class API {
         let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.global(qos: .utility).async {
             if let httpResponse = response as? HTTPURLResponse{
                 if httpResponse.statusCode != 200{
-                    callback(nil, error)
+                    callback(nil, APIError(kind: .invalidStatusCode))
                 }
             }
             if error != nil{
@@ -93,7 +103,7 @@ class API {
                     }
                 }
             }
-            callback(nil, error)
+            callback(nil, APIError(kind: .forbiddenAccess))
             }
         }
         task.resume()
@@ -120,7 +130,7 @@ class API {
                 //print(error)
                 
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
-                    callback(nil, error)
+                    callback(nil, APIError(kind: .invalidStatusCode))
                 }
                 if error != nil{
                     callback(nil, error)
@@ -159,10 +169,99 @@ class API {
                         }
                     }
                 }
-                callback(nil, error)
+                callback(nil, APIError(kind: .forbiddenAccess))
             }
         }
         task.resume()
+        
+    }
+    //AKTUALIZUJE MECZ PODANYMI PARAMETRAMI
+    func updateMatch(parameters: [String:Any]!, callback: @escaping (_ error: Error?) -> Void){
+        
+        guard parameters["tournament"] != nil, parameters["id"] != nil else{
+            print("Couldn't find tournamentId or matchId")
+            callback(APIError(kind: .missingParameters))
+            return
+        }
+        
+        let matchUrl = url+subUrls["matches"]!
+        
+        var request = URLRequest(url:URL(string: matchUrl)!)
+        
+        request.httpMethod = "POST"
+        
+        do {
+            let Json = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            request.httpBody = Json
+            print(try? JSONSerialization.jsonObject(with: Json, options: []))
+        }catch{
+            print(error.localizedDescription)
+        }
+        
+        
+        
+        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        let task = URLSession.shared.dataTask(with: request){(data, response, error) in
+            DispatchQueue.global(qos: .utility).async {
+                if let content = data, let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]{
+                    print(json)
+                }
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
+                    callback(APIError(kind: .invalidStatusCode))
+                }
+                guard error == nil else{
+                    callback(error)
+                    return
+                }
+                callback(nil)
+            }
+        }
+        task.resume()
+        
+        
+    }
+    //SPRAWDZA CZY PODANY LOGIN I HASLO SA POPRAWNE
+    func login(parameters: [String:String]!, callback: @escaping (_ error: Error?) -> Void){
+        
+        guard parameters["username"] != nil, parameters["password"] != nil else{
+            print("No username or password provided")
+            callback(APIError(kind: .missingParameters))
+            return
+        }
+        
+        let requestUrl = url+subUrls["administrate"]!
+        
+        var request = URLRequest(url: URL(string: requestUrl)!)
+        request.httpMethod = "POST"
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        }catch{
+            print(error.localizedDescription)
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let task = URLSession.shared.dataTask(with: request){(data, response, error) in
+            DispatchQueue.global(qos: .utility).async {
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
+                    callback(APIError(kind: .invalidStatusCode))
+                }
+                guard error == nil else{
+                    callback(error)
+                    return
+                }
+                if let content = data, let utf8Text = String(data: content, encoding: .utf8){
+                    if(utf8Text.contains("\"error\":true")){
+                        callback(APIError(kind: .invalidLoginOrPass))
+                    }
+                }
+                callback(nil)
+            }
+        }
+        
         
     }
     

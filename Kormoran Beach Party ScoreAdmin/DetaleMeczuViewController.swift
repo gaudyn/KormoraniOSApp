@@ -102,12 +102,11 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         
         super.prepare(for: segue, sender: sender)
         
-        // OPCLONALNE ALERTY KIEDY WCIŚNIĘTO PRZYCISK ZAPISANIA
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
+        // OPCJONALNE ALERTY KIEDY WCIŚNIĘTO PRZYCISK ZAPISANIA
         
         if let button = sender as? UIBarButtonItem, button === saveButton{
-            
-            let semaphore = DispatchSemaphore(value: 1)
             
             var winner_id: String!
             var retrievedSettings: Settings!
@@ -134,19 +133,19 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                     let pl1_win = UIAlertAction(title: Pl1Name!, style: .default, handler:{
                         (alert) in
                         winner_id = String(describing: self.match!.player1_id)
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                        semaphore.wait()
-                        Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params).response{ response in
-                            print("Request: \(response.request)")
-                            print("Response: \(response.response)")
-                            print("Error: \(response.error)")
-                            
-                            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                                print("Data: \(utf8Text)")
-                                
+                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournamentId": self.tournamentID!, "matchId": self.match!.id]
+                        API().updateMatch(parameters: params, callback: {(error) in
+                            DispatchQueue.main.async {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             }
-                            semaphore.signal()
-                        }
+                            guard error == nil else{
+                                print("ERROR")
+                                print(error)
+                                return
+                            }
+                            
+                        })
+                        
                         let owningNavigationController = self.navigationController
                         owningNavigationController?.popViewController(animated: true)
                         
@@ -158,10 +157,19 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         (alert) in
                         winner_id = String(describing: self.match!.player2_id)
                         print ("Zwycięstca: \(winner_id)")
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                        semaphore.wait()
-                        Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params)
-                        semaphore.signal()
+                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournamentId": self.tournamentID!, "matchId": self.match!.id]
+                       
+                        API().updateMatch(parameters: params, callback: {(error) in
+                            DispatchQueue.main.async {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            }
+                            guard error == nil else{
+                                print("ERROR")
+                                print(error)
+                                return
+                            }
+                            
+                        })
                         let owningNavigationController = self.navigationController
                         owningNavigationController?.popViewController(animated: true)
                         
@@ -173,10 +181,19 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         (alert) in
                         winner_id = "tie"
                         print ("Zwycięstca: \(winner_id)")
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                        semaphore.wait()
-                        Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params)
-                        semaphore.signal()
+                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
+                        
+                        API().updateMatch(parameters: params, callback: {(error) in
+                            DispatchQueue.main.async {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            }
+                            guard error == nil else{
+                                print("ERROR")
+                                print(error)
+                                return
+                            }
+                            
+                        })
                         let owningNavigationController = self.navigationController
                         owningNavigationController?.popViewController(animated: true)
                         
@@ -192,78 +209,85 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
+                let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
                 print(params)
-                semaphore.wait()
-                Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params).response{ response in
-                    print("Request: \(response.request)")
-                    print("Response: \(response.response)")
-                    print("Error: \(response.error)")
-                    
-                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                        print("Data: \(utf8Text)")
-                        
+                
+                API().updateMatch(parameters: params, callback: {(error) in
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
-                    semaphore.signal()
-                }
+                    guard error == nil else{
+                        print("ERROR")
+                        print(error)
+                        return
+                    }
+                    
+                })
             }else{
                 let promt = UIAlertController(title: "Wybierz zwycięzcę", message: nil, preferredStyle: .actionSheet)
                 let team1 = UIAlertAction(title: self.Pl1Name!, style: .default, handler: {
                     (alert) in
                     winner_id = self.Pl1Name!
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
+                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
                     print(params)
-                    semaphore.wait()
-                    Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params).response{ response in
-                        print("Request: \(response.request)")
-                        print("Response: \(response.response)")
-                        print("Error: \(response.error)")
-                        
-                        if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                            print("Data: \(utf8Text)")
-                            
+                    
+                    API().updateMatch(parameters: params, callback: {(error) in
+                        guard error == nil else{
+                            print("ERROR")
+                            print(error)
+                            DispatchQueue.main.async {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            }
+                            return
                         }
-                        semaphore.signal()
-                        self.navigationController!.popViewController(animated: true)
-                    }
+                        DispatchQueue.main.async {
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            self.navigationController!.popViewController(animated: true)
+                        }
+                    })
+                    
                 })
                 let tie = UIAlertAction(title: "Remis", style: .default, handler: {
                     (alert) in
                     winner_id = "tie"
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
+                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
                     print(params)
-                    semaphore.wait()
-                    Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params).response{ response in
-                        print("Request: \(response.request)")
-                        print("Response: \(response.response)")
-                        print("Error: \(response.error)")
-                        
-                        if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                            print("Data: \(utf8Text)")
-                            
+                   
+                    API().updateMatch(parameters: params, callback: {(error) in
+                        guard error == nil else{
+                            print("ERROR")
+                            print(error)
+                            DispatchQueue.main.async {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            }
+                            return
                         }
-                        semaphore.signal()
-                        self.navigationController!.popViewController(animated: true)
-                    }
+                        DispatchQueue.main.async {
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            self.navigationController!.popViewController(animated: true)
+                        }
+                    })
                 })
                 let team2 = UIAlertAction(title: self.Pl2Name, style: .default, handler: {
                     (alert) in
                     winner_id = self.Pl2Name!
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
+                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
                     print(params)
-                    semaphore.wait()
-                    Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(String(describing: self.tournamentID!))/\(String(describing: self.match!.id))", method: .post, parameters: params).response{ response in
-                        print("Request: \(response.request)")
-                        print("Response: \(response.response)")
-                        print("Error: \(response.error)")
-                        
-                        if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                            print("Data: \(utf8Text)")
-                            
+                    
+                    API().updateMatch(parameters: params, callback: {(error) in
+                        guard error == nil else{
+                            print("ERROR")
+                            print(error)
+                            DispatchQueue.main.async {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            }
+                            return
                         }
-                        semaphore.signal()
-                        self.navigationController!.popViewController(animated: true)
-                    }
+                        DispatchQueue.main.async {
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            self.navigationController!.popViewController(animated: true)
+                        }
+                    })
                 })
                 let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
                 

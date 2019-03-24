@@ -278,7 +278,9 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         API().loadTournaments(callback: {(tours, error) in
             guard error == nil && tours != nil else{
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
                 return
             }
             self.tournaments = tours!
