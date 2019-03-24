@@ -226,58 +226,19 @@ class MeczeTableViewController: UITableViewController {
     }
     
     private func loadMatches(){
-        
-        // USTAW URL SERWERA
-        let url = URL(string: "https://code.legnica.pl/kormoran/api/matches.php?username=\(KeychainWrapper.standard.string(forKey: "USER_LOGIN")!)&password=\(KeychainWrapper.standard.string(forKey: "USER_PASS")!)&tournament=\(tournament!.id)")
-        var request = URLRequest(url: url!)
-        // USTAW METODĘ REQESTU
-        request.httpMethod = "GET"
-        
-        
-        // WYŚLIJ REQUEST
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            DispatchQueue.main.async {
-                print(data)
-                print(response)
-                print(error)
-                if error != nil{
-                    fatalError("Could not receive challonge data")
-                }
-                else{
-                    // ODEBRANO DANE
-                    if let content = data{
-                        // SERIALIZACJA JSONA
-                        let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
-                        if let jsonMatches = json??["matches"] as? [[String: Any]]{
-                            // DLA KAŻDEGO MECZU STWÓRZ NOWY OBIEKT MECZU
-                            for match in jsonMatches{
-                                
-                                let id = match["match_id"] as! Int
-                                let state = match["state"] as! String
-                                
-                                let team_1 = match["team_1"] as? String
-                                let team_2 = match["team_2"] as? String
-                                
-                                let winner = match["winner"] as? String
-                                
-                                let team_1_score = match["points_team_1"] as? Int ?? 0
-                                let team_2_score = match["points_team_2"] as? Int ?? 0
-                                
-                                let scores = String(describing: team_1_score)+"-"+String(describing: team_2_score)
-                                // STWÓRZ OBIEKT MECZU
-                                let mecz = Mecz(id: id, player1_id: team_1, player2_id: team_2, state: state, score: scores, winner: winner, ties: self.tournament!.ties)
-                                // DODAJ DO TABLICY I PRZEŁADUJ DANE
-                                self.matches += [mecz!]
-                                self.matches.sort(by: {$0.weight! < $1.weight!})
-                                self.tableView.reloadData()
-                                
-                            }
-                        }
-                    }
-                }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        API().loadMatches(tournamentID: tournament!.id, callback: {(matchs, error) in
+            guard error == nil  && matchs != nil else{
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                return
             }
-        }
-        task.resume()
+            self.matches = matchs!
+            self.matches.sort(by: {$0.weight! < $1.weight!})
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+        })
         
     }
    

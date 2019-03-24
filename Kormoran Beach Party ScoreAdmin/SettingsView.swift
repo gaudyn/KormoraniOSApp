@@ -159,14 +159,12 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 let hash = self.loginAlert.textFields![1].text!.sha256().uppercased()
                 
                 let params = ["username": self.loginAlert.textFields![0].text!, "password": hash]
-                Alamofire.request("https://code.legnica.pl/kormoran/api/administrate.php", method: .post, parameters: params).response{ response in
-                    print("Request: \(response.request)")
-                    print("Response: \(response.response)")
-                    print("Error: \(response.error)")
-                    
-                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                        print("Data: \(utf8Text)")
-                        if (utf8Text.contains("\"error\":true")){
+                API().login(parameters: params, callback: {(error) in
+                    guard error == nil else{
+                        print("ERROR")
+                        print(error)
+                        DispatchQueue.main.async {
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             self.dismiss(animated: true, completion: nil)
                             let newMessage = NSAttributedString(string: "Podano błędny login lub hasło.\nZaloguj się ponownie.", attributes:convertToOptionalNSAttributedStringKeyDictionary([
                                 convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : UIColor.red
@@ -174,21 +172,22 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                             self.loginAlert.message = ""
                             self.loginAlert.setValue(newMessage, forKey: "attributedMessage")
                             self.present(self.loginAlert, animated: true, completion: nil)
-                        }else{
-                            KeychainWrapper.standard.set(self.loginAlert.textFields![0].text!, forKey:"USER_LOGIN")
-                            KeychainWrapper.standard.set(hash, forKey: "USER_PASS")
-                            self.UserPicture.image = #imageLiteral(resourceName: "Person-Placeholder")
-                            do{
-                                try Disk.save(#imageLiteral(resourceName: "Person-Placeholder"), to: .caches, as: "UserData/UserImage.png")
-                            }catch{
-                                fatalError("Couldn't save user's image")
-                            }
-                            self.switchLogin()
                         }
+                        return
                     }
-                    
-                    
-                }
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        KeychainWrapper.standard.set(self.loginAlert.textFields![0].text!, forKey:"USER_LOGIN")
+                        KeychainWrapper.standard.set(hash, forKey: "USER_PASS")
+                        self.UserPicture.image = #imageLiteral(resourceName: "Person-Placeholder")
+                        do{
+                            try Disk.save(#imageLiteral(resourceName: "Person-Placeholder"), to: .caches, as: "UserData/UserImage.png")
+                        }catch{
+                            fatalError("Couldn't save user's image")
+                        }
+                        self.switchLogin()
+                    }
+                })
                 self.viewDidAppear(true)
             })
             
