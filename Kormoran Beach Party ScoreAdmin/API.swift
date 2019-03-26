@@ -88,7 +88,7 @@ class API {
                             if(tournament["state"] as? String == "active"){
                                 status = "Trwający"
                             }
-                            if(tournament["state"] as? String == "complete"){
+                            if(tournament["state"] as? String == "finished"){
                                 status = "Zakończony"
                             }
                             // TWORZENIE NOWEGO TURNIEJU

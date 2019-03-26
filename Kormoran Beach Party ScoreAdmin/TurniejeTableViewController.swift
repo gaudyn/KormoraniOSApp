@@ -275,7 +275,10 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     
     //MARK: Private Methods
     private func loadChallongeTournaments(){
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
+        
         API().loadTournaments(callback: {(tours, error) in
             guard error == nil && tours != nil else{
                 DispatchQueue.main.async {
@@ -283,7 +286,9 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
                 }
                 return
             }
+            
             self.tournaments = tours!
+            
             self.tournaments.sort(by: {$0.weight! > $1.weight!})
             DispatchQueue.main.async {
                 self.tableView.reloadData()

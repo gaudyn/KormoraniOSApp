@@ -99,33 +99,56 @@ class MeczeTableViewController: UITableViewController {
         
         // USTAW AKCJĘ ROZPOCZĘCIA MECZU
         let progress = UITableViewRowAction(style: .normal, title: "Trwający") { action, index in
-            DispatchQueue.main.async {
-                let params = ["state" : "in-progress", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(self.tournament!.id)/\(self.matches[index.row].id)", method: .post, parameters: params)
-            }
-            DispatchQueue.main.async {
-                self.matches.removeAll()
-                self.loadMatches()
-            }
+            
+            let params = ["state" : "active", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String:Any]
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+            
+            API().updateMatch(parameters: params, callback: {(error) in
+                guard error == nil else{
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    self.matches.removeAll()
+                    self.loadMatches()
+                }
+            })
+            
+            
             
         }
         progress.backgroundColor = .orange
         
         // USTAW AKCJĘ DODANIA MECZU DO OCZEKUJĄCYCH
         let ready = UITableViewRowAction(style: .normal, title: "Oczekujący") { action, index in
-            DispatchQueue.main.async {
-                let params = ["state" : "ready_to_play", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(self.tournament!.id)/\(self.matches[index.row].id)", method: .post, parameters: params)
-            }
-            DispatchQueue.main.async {
-                self.matches.removeAll()
-                self.loadMatches()
-            }
             
+            let params = ["state" : "ready-to-play", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String: Any]
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+            
+            API().updateMatch(parameters: params, callback: {(error) in
+                guard error == nil else{
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    self.matches.removeAll()
+                    self.loadMatches()
+                }
+                
+            })
         }
         ready.backgroundColor = UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0)
         // JEŻELI MECZ JEST TRWAJĄCY DODAJ MOŻLIWOŚĆ DODANIA DO OCZEKUJĄCYCH. W INNYM WYPADKU DODAJ MOŻLIWOŚĆ ROZPOCZĘCIA
-        if(matches[indexPath.row].state == "in-progress"){
+        if(matches[indexPath.row].state == "active"){
             return [ready]
         }else{
             return [progress]
@@ -229,7 +252,9 @@ class MeczeTableViewController: UITableViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         API().loadMatches(tournamentID: tournament!.id, callback: {(matchs, error) in
             guard error == nil  && matchs != nil else{
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
                 return
             }
             self.matches = matchs!

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0930"
-   version = "2.0">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -81,13 +81,9 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "2">
-      <PathRunnable
-         runnableDebuggingMode = "0"
-         FilePath = "/&lt;placeholder&gt;">
-      </PathRunnable>
-      <MacroExpansion>
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3DA0D941F09752E00D99CC4"
@@ -95,7 +91,7 @@
             BlueprintName = "Kormoran Beach Party"
             ReferencedContainer = "container:Kormoran Beach Party.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
