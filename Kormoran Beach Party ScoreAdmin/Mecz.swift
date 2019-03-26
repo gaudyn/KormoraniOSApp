@@ -21,15 +21,10 @@ class Mecz{
     var winner: String?
     var ties: Bool
     
-    init?(id: Int, player1_id: String?, player2_id: String?, state: String, score: String, winner: String?, ties: Bool){
-        //SPRAWDZENIE, CZY JEST ZWYCIĘSCA
+    init?(id: Int, player1_id: String?, player2_id: String?, state: String!, score: String, winner: String?, ties: Bool){
+        //SPRAWDZENIE, CZY JEST ZWYCIĘZCA
         if(winner != nil){
             self.winner = winner
-        }
-        //ID TURNIEJU NIE MOŻE BYĆ PUSTE
-        guard id != nil else{
-            //fatalError("Could not set id")
-            return nil
         }
         //STATUS TURNIEJU NIE MOŻE BYĆ PUSTY
         guard !state.isEmpty else{
@@ -41,11 +36,11 @@ class Mecz{
             self.weight = 2
             self.color = UIColor(red:0.82, green:0.82, blue:0.82, alpha:0.3)
         }
-        if(state == "ready-to-play" || state == "open"){
+        if(state == "ready-to-play"){
             self.weight = 1
             self.color = UIColor(red:0.52, green:0.92, blue:0.18, alpha:0.3)
         }
-        if(state == "in-progress" || state == " in-progress"){
+        if(state == "active"){
             self.weight = 0
             self.color = UIColor(red:1.00, green:0.85, blue:0.00, alpha:0.3)
         }
@@ -63,11 +58,11 @@ class Mecz{
             self.weight = 2
             self.color = UIColor(red:0.82, green:0.82, blue:0.82, alpha:0.3)
         }
-        if(state == "ready_to_play" || state == "open"){
+        if(state == "ready-to-play"){
             self.weight = 1
             self.color = UIColor(red:0.52, green:0.92, blue:0.18, alpha:0.3)
         }
-        if(state == "in-progress" || state == " in-progress"){
+        if(state == "active"){
             self.weight = 0
             self.color = UIColor(red:1.00, green:0.85, blue:0.00, alpha:0.3)
         }

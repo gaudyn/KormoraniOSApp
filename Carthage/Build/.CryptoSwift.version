@@ -1,27 +1,9 @@
 {
-  "Mac" : [
-    {
-      "name" : "CryptoSwift",
-      "hash" : "5520a0bb773dd5d82ea943d1da8493135413e9370ec87662c6aa25f230a7d410"
-    }
-  ],
-  "watchOS" : [
-    {
-      "name" : "CryptoSwift",
-      "hash" : "b9bff07d43dfd9f3e3e78b339199ef4b42a57886151e86550c0a6a2d95c1f93b"
-    }
-  ],
-  "tvOS" : [
-    {
-      "name" : "CryptoSwift",
-      "hash" : "69f49281f1d3075dea77e6dc9d70094abe1012b9754d98ea9f4b4ff7985a23fe"
-    }
-  ],
-  "commitish" : "0.14.0",
+  "commitish" : "0.15.0",
   "iOS" : [
     {
       "name" : "CryptoSwift",
-      "hash" : "a457bba7e464e9ea9ea63ce3ab13650a1be8517c9f8c9d37f9e12228e34f6146"
+      "hash" : "9a6ae10cee4da39a1376836608a900ed2ba66e66190121d4e16b5481972b9f09"
     }
   ]
 }

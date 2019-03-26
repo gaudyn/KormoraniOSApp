@@ -99,33 +99,56 @@ class MeczeTableViewController: UITableViewController {
         
         // USTAW AKCJĘ ROZPOCZĘCIA MECZU
         let progress = UITableViewRowAction(style: .normal, title: "Trwający") { action, index in
-            DispatchQueue.main.async {
-                let params = ["state" : "in-progress", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(self.tournament!.id)/\(self.matches[index.row].id)", method: .post, parameters: params)
-            }
-            DispatchQueue.main.async {
-                self.matches.removeAll()
-                self.loadMatches()
-            }
+            
+            let params = ["state" : "active", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String:Any]
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+            
+            API().updateMatch(parameters: params, callback: {(error) in
+                guard error == nil else{
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    self.matches.removeAll()
+                    self.loadMatches()
+                }
+            })
+            
+            
             
         }
         progress.backgroundColor = .orange
         
         // USTAW AKCJĘ DODANIA MECZU DO OCZEKUJĄCYCH
         let ready = UITableViewRowAction(style: .normal, title: "Oczekujący") { action, index in
-            DispatchQueue.main.async {
-                let params = ["state" : "ready_to_play", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!]
-                Alamofire.request("https://code.legnica.pl/kormoran/api/matches.php/\(self.tournament!.id)/\(self.matches[index.row].id)", method: .post, parameters: params)
-            }
-            DispatchQueue.main.async {
-                self.matches.removeAll()
-                self.loadMatches()
-            }
             
+            let params = ["state" : "ready-to-play", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String: Any]
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+            
+            API().updateMatch(parameters: params, callback: {(error) in
+                guard error == nil else{
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    self.matches.removeAll()
+                    self.loadMatches()
+                }
+                
+            })
         }
         ready.backgroundColor = UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0)
         // JEŻELI MECZ JEST TRWAJĄCY DODAJ MOŻLIWOŚĆ DODANIA DO OCZEKUJĄCYCH. W INNYM WYPADKU DODAJ MOŻLIWOŚĆ ROZPOCZĘCIA
-        if(matches[indexPath.row].state == "in-progress"){
+        if(matches[indexPath.row].state == "active"){
             return [ready]
         }else{
             return [progress]
@@ -226,58 +249,21 @@ class MeczeTableViewController: UITableViewController {
     }
     
     private func loadMatches(){
-        
-        // USTAW URL SERWERA
-        let url = URL(string: "https://code.legnica.pl/kormoran/api/matches.php?username=\(KeychainWrapper.standard.string(forKey: "USER_LOGIN")!)&password=\(KeychainWrapper.standard.string(forKey: "USER_PASS")!)&tournament=\(tournament!.id)")
-        var request = URLRequest(url: url!)
-        // USTAW METODĘ REQESTU
-        request.httpMethod = "GET"
-        
-        
-        // WYŚLIJ REQUEST
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            DispatchQueue.main.async {
-                print(data)
-                print(response)
-                print(error)
-                if error != nil{
-                    fatalError("Could not receive challonge data")
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        API().loadMatches(tournamentID: tournament!.id, callback: {(matchs, error) in
+            guard error == nil  && matchs != nil else{
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
-                else{
-                    // ODEBRANO DANE
-                    if let content = data{
-                        // SERIALIZACJA JSONA
-                        let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
-                        if let jsonMatches = json??["matches"] as? [[String: Any]]{
-                            // DLA KAŻDEGO MECZU STWÓRZ NOWY OBIEKT MECZU
-                            for match in jsonMatches{
-                                
-                                let id = match["match_id"] as! Int
-                                let state = match["state"] as! String
-                                
-                                let team_1 = match["team_1"] as? String
-                                let team_2 = match["team_2"] as? String
-                                
-                                let winner = match["winner"] as? String
-                                
-                                let team_1_score = match["points_team_1"] as? Int ?? 0
-                                let team_2_score = match["points_team_2"] as? Int ?? 0
-                                
-                                let scores = String(describing: team_1_score)+"-"+String(describing: team_2_score)
-                                // STWÓRZ OBIEKT MECZU
-                                let mecz = Mecz(id: id, player1_id: team_1, player2_id: team_2, state: state, score: scores, winner: winner, ties: self.tournament!.ties)
-                                // DODAJ DO TABLICY I PRZEŁADUJ DANE
-                                self.matches += [mecz!]
-                                self.matches.sort(by: {$0.weight! < $1.weight!})
-                                self.tableView.reloadData()
-                                
-                            }
-                        }
-                    }
-                }
+                return
             }
-        }
-        task.resume()
+            self.matches = matchs!
+            self.matches.sort(by: {$0.weight! < $1.weight!})
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+        })
         
     }
    
