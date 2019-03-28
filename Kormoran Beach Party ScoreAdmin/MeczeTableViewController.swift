@@ -148,6 +148,10 @@ class MeczeTableViewController: UITableViewController {
         }
         ready.backgroundColor = UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0)
         // JEŻELI MECZ JEST TRWAJĄCY DODAJ MOŻLIWOŚĆ DODANIA DO OCZEKUJĄCYCH. W INNYM WYPADKU DODAJ MOŻLIWOŚĆ ROZPOCZĘCIA
+        guard indexPath.row < matches.count else{
+            print("Index out of range")
+            return []
+        }
         if(matches[indexPath.row].state == "active"){
             return [ready]
         }else{
