@@ -12,9 +12,6 @@ import XCTest
 
 class Kormoran_Beach_Party_Tests: XCTestCase {
 
-    func test(){
-        let api = API()
-        XCTAssertTrue(api.checkConnection(), "Hello")
-    }
+    
 
 }
