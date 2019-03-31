@@ -35,6 +35,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     var Pl1Name: String?
     var Pl2Name: String?
     var tournamentID: String?
+    var requestParameters: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +108,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         // OPCJONALNE ALERTY KIEDY WCIŚNIĘTO PRZYCISK ZAPISANIA
         
         if let button = sender as? UIBarButtonItem, button === saveButton{
+            requestParameters = ["state" : "finished", "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id, "winner": ""]
             
             var winner_id: String!
             var retrievedSettings: Settings!
@@ -133,8 +135,8 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                     let pl1_win = UIAlertAction(title: Pl1Name!, style: .default, handler:{
                         (alert) in
                         winner_id = String(describing: self.match!.player1_id)
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournamentId": self.tournamentID!, "matchId": self.match!.id]
-                        API().updateMatch(parameters: params, callback: {(error) in
+                        self.requestParameters!["winner"] = winner_id!
+                        API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                             DispatchQueue.main.async {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             }
@@ -156,10 +158,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                     let pl2_win = UIAlertAction(title: Pl2Name!, style: .default, handler:{
                         (alert) in
                         winner_id = String(describing: self.match!.player2_id)
-                        print ("Zwycięstca: \(winner_id)")
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournamentId": self.tournamentID!, "matchId": self.match!.id]
-                       
-                        API().updateMatch(parameters: params, callback: {(error) in
+                        self.requestParameters!["winner"] = winner_id!
+                        
+                        API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                             DispatchQueue.main.async {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             }
@@ -180,10 +181,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                     let tie = UIAlertAction(title: "Remis", style: .default, handler:{
                         (alert) in
                         winner_id = "tie"
-                        print ("Zwycięstca: \(winner_id)")
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
+                        self.requestParameters!["winner"] = winner_id!
                         
-                        API().updateMatch(parameters: params, callback: {(error) in
+                        API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                             DispatchQueue.main.async {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             }
@@ -209,10 +209,8 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                print(params)
-                
-                API().updateMatch(parameters: params, callback: {(error) in
+                self.requestParameters!["winner"] = winner_id!
+                API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                     DispatchQueue.main.async {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
@@ -228,10 +226,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                 let team1 = UIAlertAction(title: self.Pl1Name!, style: .default, handler: {
                     (alert) in
                     winner_id = self.Pl1Name!
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                    print(params)
+                    self.requestParameters!["winner"] = winner_id!
                     
-                    API().updateMatch(parameters: params, callback: {(error) in
+                    API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                         guard error == nil else{
                             print("ERROR")
                             print(error)
@@ -250,10 +247,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                 let tie = UIAlertAction(title: "Remis", style: .default, handler: {
                     (alert) in
                     winner_id = "tie"
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                    print(params)
-                   
-                    API().updateMatch(parameters: params, callback: {(error) in
+                    self.requestParameters!["winner"] = winner_id!
+                    
+                    API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                         guard error == nil else{
                             print("ERROR")
                             print(error)
@@ -271,10 +267,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                 let team2 = UIAlertAction(title: self.Pl2Name, style: .default, handler: {
                     (alert) in
                     winner_id = self.Pl2Name!
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                    print(params)
+                    self.requestParameters!["winner"] = winner_id!
                     
-                    API().updateMatch(parameters: params, callback: {(error) in
+                    API().updateMatch(parameters: self.requestParameters, callback: {(error) in
                         guard error == nil else{
                             print("ERROR")
                             print(error)
