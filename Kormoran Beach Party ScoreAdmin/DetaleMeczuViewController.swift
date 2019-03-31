@@ -109,7 +109,6 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         
         if let button = sender as? UIBarButtonItem, button === saveButton{
             requestParameters = ["state" : "finished", "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id, "winner": ""]
-            
             var winner_id: String!
             var retrievedSettings: Settings!
             do{
@@ -136,20 +135,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         (alert) in
                         winner_id = String(describing: self.match!.player1_id)
                         self.requestParameters!["winner"] = winner_id!
-                        API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            guard error == nil else{
-                                print("ERROR")
-                                print(error)
-                                return
-                            }
-                            
-                        })
-                        
-                        let owningNavigationController = self.navigationController
-                        owningNavigationController?.popViewController(animated: true)
+                        self.updateScores()
                         
                         
                     })
@@ -160,19 +146,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         winner_id = String(describing: self.match!.player2_id)
                         self.requestParameters!["winner"] = winner_id!
                         
-                        API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            guard error == nil else{
-                                print("ERROR")
-                                print(error)
-                                return
-                            }
-                            
-                        })
-                        let owningNavigationController = self.navigationController
-                        owningNavigationController?.popViewController(animated: true)
+                        self.updateScores()
                         
                         
                     })
@@ -182,20 +156,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         (alert) in
                         winner_id = "tie"
                         self.requestParameters!["winner"] = winner_id!
-                        
-                        API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            guard error == nil else{
-                                print("ERROR")
-                                print(error)
-                                return
-                            }
-                            
-                        })
-                        let owningNavigationController = self.navigationController
-                        owningNavigationController?.popViewController(animated: true)
+                        self.updateScores()
                         
                     })
                     let cancel = UIAlertAction(title:"Anuluj", style: .cancel, handler: nil)
@@ -210,79 +171,27 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 self.requestParameters!["winner"] = winner_id!
-                API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
-                    guard error == nil else{
-                        print("ERROR")
-                        print(error)
-                        return
-                    }
-                    
-                })
+                updateScores()
             }else{
                 let promt = UIAlertController(title: "Wybierz zwycięzcę", message: nil, preferredStyle: .actionSheet)
                 let team1 = UIAlertAction(title: self.Pl1Name!, style: .default, handler: {
                     (alert) in
                     winner_id = self.Pl1Name!
                     self.requestParameters!["winner"] = winner_id!
-                    
-                    API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                        guard error == nil else{
-                            print("ERROR")
-                            print(error)
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            self.navigationController!.popViewController(animated: true)
-                        }
-                    })
+                    self.updateScores()
                     
                 })
                 let tie = UIAlertAction(title: "Remis", style: .default, handler: {
                     (alert) in
                     winner_id = "tie"
                     self.requestParameters!["winner"] = winner_id!
-                    
-                    API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                        guard error == nil else{
-                            print("ERROR")
-                            print(error)
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            self.navigationController!.popViewController(animated: true)
-                        }
-                    })
+                    self.updateScores()
                 })
                 let team2 = UIAlertAction(title: self.Pl2Name, style: .default, handler: {
                     (alert) in
                     winner_id = self.Pl2Name!
                     self.requestParameters!["winner"] = winner_id!
-                    
-                    API().updateMatch(parameters: self.requestParameters, callback: {(error) in
-                        guard error == nil else{
-                            print("ERROR")
-                            print(error)
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            self.navigationController!.popViewController(animated: true)
-                        }
-                    })
+                    self.updateScores()
                 })
                 let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
                 
@@ -313,5 +222,22 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
+    private func updateScores(){
+        print(self.requestParameters!)
+        API().updateMatch(parameters: self.requestParameters!, callback: {(error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            guard error == nil else{
+                print("ERROR")
+                print(error)
+                
+                return
+            }
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        
+        })
+    }
 }
