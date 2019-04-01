@@ -27,31 +27,6 @@ class API {
         "administrate" : "/administrate.php"
     ]
     
-    // TODO
-    // SPRAWDZA POŁĄCZENIE Z API, true: połączono, false: brak połączenia
-    func checkConnection() -> Bool{
-        let tournamentsURL = url+subUrls["tournaments"]!
-        var httpRequest = URLRequest(url: URL(string: tournamentsURL)!)
-        
-        httpRequest.httpMethod = "GET"
-        var Success = true
-        let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.main.async {
-                if let httpResponse = response as? HTTPURLResponse{
-                    if httpResponse.statusCode != 200{
-                        Success = false
-                        return
-                    }
-                }
-                if error != nil{
-                    Success = false
-                    return
-                }
-            }
-        }
-        task.resume()
-        return Success
-    }
-    
     // ZWRACA TABLICĘ TURNIEJÓW Z API
     func loadTournaments(callback: @escaping (_ turnieje: [Turniej]?, _ error: Error?) -> Void){
         var tournamentsURL = url+subUrls["tournaments"]!
@@ -210,6 +185,7 @@ class API {
                     callback(error)
                     return
                 }
+                
                 callback(nil)
             }
         }
