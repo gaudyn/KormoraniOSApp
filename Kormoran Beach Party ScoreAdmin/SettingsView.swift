@@ -32,6 +32,10 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     
     var UserLogged: Bool!;
     
+    //Social medias
+    @IBOutlet var FacebookTap: UITapGestureRecognizer!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         navigationController?.navigationBar.prefersLargeTitles = true;
@@ -231,6 +235,11 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             autoSetWinnerSwitch.setOn(!autoSetWinnerSwitch.isOn, animated: true)
         }
     
+    }
+    @IBAction func facebookTapped(_ sender: UITapGestureRecognizer) {
+        let fbURL = URL(string: "https://www.facebook.com/events/396443354172218/")
+        UIApplication.shared.open(fbURL! , options: [:], completionHandler: nil)
+        
     }
 }
 
