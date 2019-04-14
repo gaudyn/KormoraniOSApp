@@ -1,9 +1,9 @@
 //
 //  DetaleMeczuViewController.swift
-//  Kormoran Beach Party ScoreAdmin
+//  Kormoran Admin System
 //
-//  Created by Administrator on 10.07.2017.
-//  Copyright © 2017 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
+//  Created by Gniewomir Gaudyn on 10.07.2017.
+//  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
 import UIKit
@@ -89,7 +89,6 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Navigation
      
      @IBAction func Cancel(_ sender: UIBarButtonItem) {
-        // WRÓĆ SIĘ DO POPRZEDNIEGO OKNA
         if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
         }
@@ -108,7 +107,8 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         // OPCJONALNE ALERTY KIEDY WCIŚNIĘTO PRZYCISK ZAPISANIA
         
         if let button = sender as? UIBarButtonItem, button === saveButton{
-            requestParameters = ["state" : "finished", "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id, "winner": ""]
+            updateParameters()
+            
             var winner_id: String!
             var retrievedSettings: Settings!
             do{
@@ -205,6 +205,10 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    private func updateParameters(){
+        requestParameters = ["state" : "finished", "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id, "winner": ""]
+    }
+    
     @IBAction func Switched(_ sender: UISwitch) {
         updateSaveButton()
     }
@@ -224,7 +228,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     }
     private func updateScores(){
         print(self.requestParameters!)
-        API().updateMatch(parameters: self.requestParameters!, callback: {(error) in
+        API.updateMatch(parameters: self.requestParameters!, callback: {(error) in
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }

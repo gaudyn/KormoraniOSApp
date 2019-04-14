@@ -2,7 +2,7 @@
 //  API.swift
 //  Kormoran Beach Party
 //
-//  Created by Administrator on 02/03/2019.
+//  Created by Gniewomir Gaudyn on 02/03/2019.
 //  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
@@ -27,14 +27,14 @@ class API {
         "administrate" : "/administrate.php"
     ]
     
-    // ZWRACA TABLICĘ TURNIEJÓW Z API
-    func loadTournaments(callback: @escaping (_ turnieje: [Turniej]?, _ error: Error?) -> Void){
+    class func loadTournaments(callback: @escaping (_ turnieje: [Turniej]?, _ error: Error?) -> Void){
+        
         var tournamentsURL = url+subUrls["tournaments"]!
         if let username = KeychainWrapper.standard.string(forKey: "USER_LOGIN"), let password =  KeychainWrapper.standard.string(forKey: "USER_PASS"){
             tournamentsURL+="?username=\(username)&password=\(password)"
         }
-        var httpRequest = URLRequest(url: URL(string: tournamentsURL)!)
         
+        var httpRequest = URLRequest(url: URL(string: tournamentsURL)!)
         httpRequest.httpMethod = "GET"
     
         let task = URLSession.shared.dataTask(with: httpRequest){ (data, response, error) in DispatchQueue.global(qos: .utility).async {
@@ -49,7 +49,6 @@ class API {
             else{
                 if let content = data{
                     
-                    // SERIALIZACJA JSONA
                     let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
                     
                     if let jsonTournaments = json??["tournaments"] as? [[String: Any]]{
@@ -66,14 +65,11 @@ class API {
                             if(tournament["state"] as? String == "finished"){
                                 status = "Zakończony"
                             }
-                            // TWORZENIE NOWEGO TURNIEJU
                             let turniej = Turniej(name: tournament["rep_name"] as? String, game: tournament["game"] as? String, state: status, id: tournament["name"] as? String, ties: false)
-                            // DODAWANIE TURNIEJU DO TABLICY
                             if turniej != nil{
                                 tournaments.append(turniej!)
                             }
                         }
-                        //tournaments.sort(by: {$0.weight! > $1.weight!})
                         callback(tournaments, nil)
                     }
                 }
@@ -84,25 +80,18 @@ class API {
         task.resume()
     }
     
-    //ZWRACA TABLICĘ MECZY Z API
-    func loadMatches(tournamentID: String!, callback: @escaping (_ mecze: [Mecz]?, _ error: Error?) -> Void){
+    class func loadMatches(tournamentID: String!, callback: @escaping (_ mecze: [Mecz]?, _ error: Error?) -> Void){
         
-        // USTAW URL SERWERA
         var matchURL = url+subUrls["matches"]!+"?tournament="+tournamentID
         if let username = KeychainWrapper.standard.string(forKey: "USER_LOGIN"), let password =  KeychainWrapper.standard.string(forKey: "USER_PASS"){
             matchURL+="&username=\(username)&password=\(password)"
         }
         var request = URLRequest(url: URL(string: matchURL)!)
-        // USTAW METODĘ REQESTU
         request.httpMethod = "GET"
         
         
-        // WYŚLIJ REQUEST
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.global(qos: .utility).async {
-                //print(data)
-                //print(response)
-                //print(error)
                 
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
                     callback(nil, APIError(kind: .invalidStatusCode))
@@ -112,13 +101,10 @@ class API {
                 }
                     
                 else{
-                    // ODEBRANO DANE
                     if let content = data{
-                        // SERIALIZACJA JSONA
                         let json = try? JSONSerialization.jsonObject(with: content, options: []) as? [String: Any]
                         if let jsonMatches = json??["matches"] as? [[String: Any]]{
                             var matches = [Mecz]()
-                            // DLA KAŻDEGO MECZU STWÓRZ NOWY OBIEKT MECZU
                             for match in jsonMatches{
                                 
                                 let id = match["match_id"] as! Int
@@ -133,9 +119,7 @@ class API {
                                 let team_2_score = match["points_team_2"] as? Int ?? 0
                                 
                                 let scores = String(describing: team_1_score)+"-"+String(describing: team_2_score)
-                                // STWÓRZ OBIEKT MECZU
                                 let mecz = Mecz(id: id, player1_id: team_1, player2_id: team_2, state: state, score: scores, winner: winner, ties: false)
-                                // DODAJ DO TABLICY I PRZEŁADUJ DANE
                                 if mecz != nil{
                                     matches.append(mecz!)
                                 }
@@ -150,8 +134,7 @@ class API {
         task.resume()
         
     }
-    //AKTUALIZUJE MECZ PODANYMI PARAMETRAMI
-    func updateMatch(parameters: [String:Any]!, callback: @escaping (_ error: Error?) -> Void){
+    class func updateMatch(parameters: [String:Any]!, callback: @escaping (_ error: Error?) -> Void){
         
         guard parameters["tournament"] != nil, parameters["id"] != nil else{
             print("Couldn't find tournamentId or matchId")
@@ -193,8 +176,7 @@ class API {
         
         
     }
-    //SPRAWDZA CZY PODANY LOGIN I HASLO SA POPRAWNE
-    func login(parameters: [String:String]!, callback: @escaping (_ error: Error?) -> Void){
+    class func login(parameters: [String:String]!, callback: @escaping (_ error: Error?) -> Void){
         
         guard parameters["username"] != nil, parameters["password"] != nil else{
             print("No username or password provided")

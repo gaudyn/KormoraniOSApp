@@ -1,9 +1,9 @@
 //
 //  Logins.swift
-//  Kormoran Beach Party ScoreAdmin
+//  Kormoran Admin System
 //
-//  Created by Administrator on 18.07.2017.
-//  Copyright © 2017 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
+//  Created by Gniewomir Gaudyn on 18.07.2017.
+//  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
 import Foundation

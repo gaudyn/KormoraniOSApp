@@ -2,7 +2,7 @@
 //  NotificationsTableViewController.swift
 //  Kormoran Beach Party
 //
-//  Created by Administrator on 04.06.2018.
+//  Created by Gniewomir Gaudyn on 04.06.2018.
 //  Copyright © 2018 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 

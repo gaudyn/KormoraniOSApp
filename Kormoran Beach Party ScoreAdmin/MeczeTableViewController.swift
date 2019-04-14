@@ -1,9 +1,9 @@
 //
 //  MeczeTableViewController.swift
-//  Kormoran Beach Party ScoreAdmin
+//  Kormoran Admin System
 //
-//  Created by Administrator on 03.07.2017.
-//  Copyright © 2017 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
+//  Created by Gniewomir Gaudyn on 03.07.2017.
+//  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
 import UIKit
@@ -108,7 +108,7 @@ class MeczeTableViewController: UITableViewController {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
             
-            API().updateMatch(parameters: params, callback: {(error) in
+            API.updateMatch(parameters: params, callback: {(error) in
                 guard error == nil else{
                     DispatchQueue.main.async {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -136,7 +136,7 @@ class MeczeTableViewController: UITableViewController {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
             
-            API().updateMatch(parameters: params, callback: {(error) in
+            API.updateMatch(parameters: params, callback: {(error) in
                 guard error == nil else{
                     DispatchQueue.main.async {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -263,7 +263,7 @@ class MeczeTableViewController: UITableViewController {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
-        API().loadMatches(tournamentID: tournament!.id, callback: {(matchs, error) in
+        API.loadMatches(tournamentID: tournament!.id, callback: {(matchs, error) in
             guard error == nil  && matchs != nil else{
                 DispatchQueue.main.async {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false

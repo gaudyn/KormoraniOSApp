@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  Kormoran Beach Party
 //
-//  Created by Administrator on 06.05.2018.
+//  Created by Gniewomir Gaudyn on 06.05.2018.
 //  Copyright © 2018 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
@@ -163,7 +163,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 let hash = self.loginAlert.textFields![1].text!.sha256().uppercased()
                 
                 let params = ["username": self.loginAlert.textFields![0].text!, "password": hash]
-                API().login(parameters: params, callback: {(error) in
+                API.login(parameters: params, callback: {(error) in
                     guard error == nil else{
                         print("ERROR")
                         print(error)
