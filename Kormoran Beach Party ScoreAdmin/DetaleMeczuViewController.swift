@@ -106,104 +106,97 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        // OPCJONALNE ALERTY KIEDY WCIŚNIĘTO PRZYCISK ZAPISANIA
-        
         if let button = sender as? UIBarButtonItem, button === saveButton{
             updateParameters()
             
-            var winner_id: String!
-            var retrievedSettings: Settings!
-            do{
-                retrievedSettings = try Disk.retrieve("UserData/Settings.json", from: .applicationSupport, as: Settings.self)
-            }catch{
-                retrievedSettings = Settings(autoSetMatchWinner: true)
-            }
-            
-            // JEŻELI MA WYŁONIĆ ZWYCIĘZCĘ
-            if retrievedSettings.autoSetMatchWinner{
+            if isAutoSetMatchWinner(){
                 
-                if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
-                    winner_id = Pl1Name!
-                } else if Int(Player1Score.text!)! < Int(Player2Score.text!)!{
-                    winner_id = Pl2Name!
-                }else{
-                    // ŻADEN Z GRACZY NIE ZDOBYŁ WIĘCEJ PUNKTÓW
+                if canAutoSetWinner(){
+                    setAutoWinner()
+                } else{
                     let promt = UIAlertController(title: "Remis",
                                                   message: "Nie można określić zwycięscy automatycznie.\nProszę wybrać ręcznie:",
                                                   preferredStyle: UIAlertController.Style.actionSheet)
                     
-                    // GRACZ 1 WYGRYWA POMIMO BRAKU PRZEWAGI PUNKTÓW
-                    let pl1_win = UIAlertAction(title: Pl1Name!, style: .default, handler:{
-                        (alert) in
-                        winner_id = String(describing: self.match!.player1_id)
-                        self.requestParameters!["winner"] = winner_id!
-                        self.updateScores()
-                    })
-                    
-                    // GRACZ 2 WYGRYWA POMIMO BRAKU PRZEWAGI PUNKTÓW
-                    let pl2_win = UIAlertAction(title: Pl2Name!, style: .default, handler:{
-                        (alert) in
-                        winner_id = String(describing: self.match!.player2_id)
-                        self.requestParameters!["winner"] = winner_id!
-                        self.updateScores()
-                    })
-                    
-                    // ŻADEN Z GRACZY NIE WYGRYWA - GRA KOŃCZY SIĘ REMISEM
-                    let tie = UIAlertAction(title: "Remis", style: .default, handler:{
-                        (alert) in
-                        winner_id = "tie"
-                        self.requestParameters!["winner"] = winner_id!
-                        self.updateScores()
-                        
-                    })
-                    let cancel = UIAlertAction(title:"Anuluj", style: .cancel, handler: nil)
-                    promt.addAction(pl1_win)
+                    promt.addAction(getWinnerAlert(winner: Pl1Name!))
                     if (match?.ties)!{
-                        promt.addAction(tie)
+                        promt.addAction(getTieAlert())
                     }
-                    promt.addAction(pl2_win)
-                    promt.addAction(cancel)
+                    promt.addAction(getWinnerAlert(winner: Pl2Name!))
+                    promt.addAction(getCancelAlert())
                     self.present(promt, animated: true, completion:nil)
                     return
                 }
                 
-                self.requestParameters!["winner"] = winner_id!
-                updateScores()
             }else{
                 let promt = UIAlertController(title: "Wybierz zwycięzcę", message: nil, preferredStyle: .actionSheet)
-                let team1 = UIAlertAction(title: self.Pl1Name!, style: .default, handler: {
-                    (alert) in
-                    winner_id = self.Pl1Name!
-                    self.requestParameters!["winner"] = winner_id!
-                    self.updateScores()
-                    
-                })
-                let tie = UIAlertAction(title: "Remis", style: .default, handler: {
-                    (alert) in
-                    winner_id = "tie"
-                    self.requestParameters!["winner"] = winner_id!
-                    self.updateScores()
-                })
-                let team2 = UIAlertAction(title: self.Pl2Name, style: .default, handler: {
-                    (alert) in
-                    winner_id = self.Pl2Name!
-                    self.requestParameters!["winner"] = winner_id!
-                    self.updateScores()
-                })
-                let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
                 
-                promt.addAction(team1)
+                promt.addAction(getWinnerAlert(winner: Pl1Name!))
                 if match!.ties{
-                    promt.addAction(tie)
+                    promt.addAction(getTieAlert())
                 }
-                promt.addAction(team2)
-                promt.addAction(cancel)
+                promt.addAction(getWinnerAlert(winner: Pl2Name!))
+                promt.addAction(getCancelAlert())
+                
                 self.present(promt, animated: true, completion: nil)
             }
         }
     }
+    
+    func isAutoSetMatchWinner() -> Bool{
+        var retrievedSettings: Settings!
+        do{
+            retrievedSettings = try Disk.retrieve("UserData/Settings.json", from: .applicationSupport, as: Settings.self)
+        }catch{
+            retrievedSettings = Settings(autoSetMatchWinner: true)
+        }
+        return retrievedSettings.autoSetMatchWinner
+    }
+    
+    func canAutoSetWinner() -> Bool{
+        if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
+            return true
+        } else if Int(Player1Score.text!)! < Int(Player2Score.text!)!{
+            return true
+        }
+        return false
+    }
+    
+    func setAutoWinner(){
+        var winnerId: String
+        if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
+            winnerId = Pl1Name!
+        } else{
+            winnerId = Pl2Name!
+        }
+        
+        requestParameters!["winner"] = winnerId
+        updateScores()
+    }
+    
+    func getWinnerAlert(winner: String) -> UIAlertAction{
+        let alert = UIAlertAction(title: winner, style: .default, handler: {
+            (alert) in
+            self.requestParameters!["winner"] = winner
+            self.updateScores()
+        })
+        return alert
+    }
+    
+    func getTieAlert() -> UIAlertAction{
+        let alert = UIAlertAction(title: "Remis", style: .default, handler: {
+            (alert) in
+            self.requestParameters!["winner"] = "tie"
+            self.updateScores()
+        })
+        return alert
+    }
+    
+    func getCancelAlert() -> UIAlertAction{
+        let alert = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
+        return alert
+    }
+    
     private func updateParameters(){
         requestParameters = ["state" : "finished",
                              "points_team_1" : Int(self.Player1Score.text!)!,
@@ -234,6 +227,10 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         }
     }
     private func updateScores(){
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
         print(self.requestParameters!)
         API.updateMatch(parameters: self.requestParameters!, callback: {(error) in
             DispatchQueue.main.async {
