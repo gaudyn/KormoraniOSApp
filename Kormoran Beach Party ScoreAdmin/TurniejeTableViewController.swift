@@ -23,24 +23,33 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true;
         
-        refresher = UIRefreshControl()
-        refresher.attributedTitle = NSAttributedString(string: NSLocalizedString("refresherString", comment: "A string for a refresher")) 
-        refresher.addTarget(self, action: #selector(TurniejeTableViewController.refresh), for: UIControl.Event.valueChanged)
-        tableView.refreshControl = refresher;
+        setupRefresher()
         
-        searchController = UISearchController(searchResultsController: nil)
-        navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Wyszukaj turnieje"
+        setupSearchController()
         
         definesPresentationContext = true
         
         if isInternetConnection(){
             loadChallongeTournaments();
         }else{
-            noInternetConnection()
+            noInternetConnectionAlert()
         }
+    }
+    
+    func setupRefresher(){
+        refresher = UIRefreshControl()
+        refresher.attributedTitle = NSAttributedString(string: NSLocalizedString("refresherString", comment: "A string for a refresher"))
+        refresher.addTarget(self, action: #selector(TurniejeTableViewController.refreshTableContents), for: UIControl.Event.valueChanged)
+        tableView.refreshControl = refresher;
+    }
+    
+    func setupSearchController(){
+        searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Wyszukaj turnieje"
+        
     }
     
     internal func updateSearchResults(for searchController: UISearchController) {
@@ -55,28 +64,20 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         self.tableView.reloadData()
     }
     
+    @objc func refreshTableContents(){
+        if isInternetConnection(){
+            loadChallongeTournaments()
+        }else{
+            noInternetConnectionAlert()
+        }
+        refresher.endRefreshing()
+    }
+    
     func isInternetConnection() -> Bool{
         return Reachability.isConnectedToNetwork()
     }
     
-    @objc func refresh(){
-        if isInternetConnection(){
-            
-            loadChallongeTournaments()
-            
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
-            
-            refresher.endRefreshing()
-        }else{
-            noInternetConnection()
-            refresher.endRefreshing()
-        }
-        
-    }
-    
-    func noInternetConnection(){
+    func noInternetConnectionAlert(){
         let alertController = UIAlertController(title: NSLocalizedString("noInternet", comment: "A string for no internet alert"), message: NSLocalizedString("noInternetMessage", comment: "Message for no internet alert"), preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
         alertController.addAction(okAction)
@@ -159,7 +160,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         guard let indexPath = tableView.indexPath(for: selectedMatchCell) else {
             fatalError("The selected cell is not being displayed by the table")
         }
-        // JEŻELI TURNIEJ OCZEKUJE NA ROZPOCZĘCIE I UŻYTKOWNIK NIE JEST ZALOGOWANY PRZERWIJ PRZEJŚCIE
+        
         if(tournaments[indexPath.row].state == "Oczekujący" && KeychainWrapper.standard.string(forKey: "USER_PASS") == nil){
             return false
         }
@@ -203,8 +204,8 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
             
             self.tournaments.removeAll()
             self.tournaments = tours!
-            
             self.tournaments.sort(by: {$0.weight! > $1.weight!})
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
