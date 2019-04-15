@@ -15,44 +15,29 @@ import os.log
 class MeczeTableViewController: UITableViewController {
 
     @IBOutlet weak var tournamentName: UINavigationItem!
-    
-    
     var tournament: Turniej?
     var matches = [Mecz]()
-    
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let semaphore = DispatchSemaphore(value: 1)
-        // USTAW TYTUŁ OKNA
-        tournamentName.title = tournament?.name
+        setTitle()
         
-        // WCZYTAJ MECZE Z SERWERA
-        semaphore.wait()
         loadMatches()
-        semaphore.signal()
-        
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func setTitle(){
+        tournamentName.title = tournament?.name
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // WCZYTAJ MECZE Z SERWERA
         loadMatches()
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -69,12 +54,10 @@ class MeczeTableViewController: UITableViewController {
         
         let cellIdentifier = "MeczeTableViewCell"
         
-        // UPEWNIJ SIĘ, ŻE KOMÓRKA NALEŻY DO MECZETABLEVIEWCELL
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MeczeTableViewCell else{
             fatalError("The dequeued cell is not an instance of TurniejTableViewCell.")
         }
         
-        // USTAW DANE W KOMÓRCE
         let match = matches[indexPath.row]
         cell.player1Name.text = match.player1_id
         cell.player2Name.text = match.player2_id
@@ -93,80 +76,32 @@ class MeczeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        guard indexPath.row < matches.count else{
-            return []
-        }
-        
-        // USTAW AKCJĘ ROZPOCZĘCIA MECZU
-        let progress = UITableViewRowAction(style: .normal, title: "Trwający") { action, index in
+        let changeMatchToInProgress = UITableViewRowAction(style: .normal, title: "Trwający") { action, index in
             
-            guard indexPath.row < self.matches.count else{
-                return
-            }
             let params = ["state" : "active", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String:Any]
             
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            
-            
-            API.updateMatch(parameters: params, callback: {(error) in
-                guard error == nil else{
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
-                    return
-                }
-                DispatchQueue.main.async {
-                    
-                    self.loadMatches()
-                }
-            })
-            
-            
-            
+            self.updateMatch(requestParameters: params)
         }
-        progress.backgroundColor = .orange
+        changeMatchToInProgress.backgroundColor = .orange
         
-        // USTAW AKCJĘ DODANIA MECZU DO OCZEKUJĄCYCH
-        let ready = UITableViewRowAction(style: .normal, title: "Oczekujący") { action, index in
+        let changeMatchToReady = UITableViewRowAction(style: .normal, title: "Oczekujący") { action, index in
             
-            guard indexPath.row < self.matches.count else{
-                return
-            }
             let params = ["state" : "ready-to-play", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String: Any]
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
+            self.updateMatch(requestParameters: params)
             
-            API.updateMatch(parameters: params, callback: {(error) in
-                guard error == nil else{
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
-                    return
-                }
-                    self.loadMatches()
-                
-                
-            })
         }
-        ready.backgroundColor = UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0)
-        // JEŻELI MECZ JEST TRWAJĄCY DODAJ MOŻLIWOŚĆ DODANIA DO OCZEKUJĄCYCH. W INNYM WYPADKU DODAJ MOŻLIWOŚĆ ROZPOCZĘCIA
-        guard indexPath.row < matches.count else{
-            print("Index out of range")
-            return []
-        }
+        changeMatchToReady.backgroundColor = UIColor(red:0.30, green:0.85, blue:0.39, alpha:1.0)
+        
         if(matches[indexPath.row].state == "active"){
-            return [ready]
+            return [changeMatchToReady]
         }else{
-            return [progress]
+            return [changeMatchToInProgress]
         }
     }
     
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // JEŻELI MECZ JEST ZAKOŃCZONY WYŁĄCZ MOŻLIWOŚĆ EDYCJI
-        guard indexPath.row < matches.count else{
-            return false
-        }
+
         if(matches[indexPath.row].state == "finished"){
             return false
         }else{
@@ -174,37 +109,9 @@ class MeczeTableViewController: UITableViewController {
         }
     }
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         // JEŻELI UŻYTKOWANIK JEST ZALOGOWANY POZWÓL MU EDYTOWAĆ PUNKTY MECZU
         
@@ -247,7 +154,6 @@ class MeczeTableViewController: UITableViewController {
             self.present(alertController, animated: true, completion: nil)
         }
         
-        // PRZEŚLIJ DANE MECZU DO OKNA ZMIANY PUNKTÓW
         matchDetailViewController.match = selectedMatch
         matchDetailViewController.Pl1Name = selectedMatch.player1_id
         matchDetailViewController.Pl2Name = selectedMatch.player2_id
@@ -263,6 +169,7 @@ class MeczeTableViewController: UITableViewController {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
+        
         API.loadMatches(tournamentID: tournament!.id, callback: {(matchs, error) in
             guard error == nil  && matchs != nil else{
                 DispatchQueue.main.async {
@@ -272,14 +179,31 @@ class MeczeTableViewController: UITableViewController {
             }
             self.matches.removeAll()
             self.matches = matchs!
-            self.matches.sort(by: {$0.weight! < $1.weight!}) // RANDOM BUGS :)
+            self.matches.sort(by: {$0.weight! < $1.weight!})
+            
             DispatchQueue.main.async {
                 
                 self.tableView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
         })
+    }
+    
+    private func updateMatch(requestParameters: [String:Any]){
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
         
+        
+        API.updateMatch(parameters: requestParameters, callback: {(error) in
+            guard error == nil else{
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+                return
+            }
+            self.loadMatches()
+        })
     }
    
 

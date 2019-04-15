@@ -19,16 +19,12 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    //Player 1 outlets
-    
     @IBOutlet weak var Player1Name: UILabel!
     @IBOutlet weak var Player1Score: UITextField!
-    //Player 2 outlets
     
     @IBOutlet weak var Player2Name: UILabel!
     @IBOutlet weak var Player2Score: UITextField!
     
-    //Vars
     var Pl1Win = false
     var Pl2Win = false
     var match: Mecz?
@@ -40,16 +36,26 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // USTAW DELEGATÓW PÓL TEKSTOWYCH
-        Player1Score.delegate = self
-        Player2Score.delegate = self
+        setupTextFieldDelegates()
         
-        Player1Name.text = Pl1Name!+":"
-        Player2Name.text = Pl2Name!+":"
+        setupPlayersNames()
         
         updateSaveButton()
         
-        // DODAJ DO KLAWIATURY PRZYCISK 'GOTOWE'
+        setupKeyboardToolbar()
+    }
+    
+    func setupTextFieldDelegates(){
+        Player1Score.delegate = self
+        Player2Score.delegate = self
+    }
+    
+    func setupPlayersNames(){
+        Player1Name.text = Pl1Name!+":"
+        Player2Name.text = Pl2Name!+":"
+    }
+    
+    func setupKeyboardToolbar(){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -57,10 +63,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         toolbar.setItems([doneButton], animated: false)
         Player1Score.inputAccessoryView = toolbar
         Player2Score.inputAccessoryView = toolbar
-        
     }
+    
     @objc func doneClicked(){
-        // ZAKOŃCZ EDYCJĘ TEKSTU
         updateSaveButton()
         view.endEditing(true)
     }
@@ -99,7 +104,6 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         super.prepare(for: segue, sender: sender)
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -121,14 +125,14 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
             if retrievedSettings.autoSetMatchWinner{
                 
                 if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
-                    // GRACZ 1 ZDOBYŁ WIĘCEJ PUNKTÓW
                     winner_id = Pl1Name!
                 } else if Int(Player1Score.text!)! < Int(Player2Score.text!)!{
-                    // GRACZ 2 ZDOBYŁ WIĘCEJ PUNKTÓW
                     winner_id = Pl2Name!
                 }else{
                     // ŻADEN Z GRACZY NIE ZDOBYŁ WIĘCEJ PUNKTÓW
-                    let promt = UIAlertController(title: "Remis", message: "Nie można określić zwycięscy automatycznie.\nProszę wybrać ręcznie:", preferredStyle: UIAlertController.Style.actionSheet)
+                    let promt = UIAlertController(title: "Remis",
+                                                  message: "Nie można określić zwycięscy automatycznie.\nProszę wybrać ręcznie:",
+                                                  preferredStyle: UIAlertController.Style.actionSheet)
                     
                     // GRACZ 1 WYGRYWA POMIMO BRAKU PRZEWAGI PUNKTÓW
                     let pl1_win = UIAlertAction(title: Pl1Name!, style: .default, handler:{
@@ -136,8 +140,6 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         winner_id = String(describing: self.match!.player1_id)
                         self.requestParameters!["winner"] = winner_id!
                         self.updateScores()
-                        
-                        
                     })
                     
                     // GRACZ 2 WYGRYWA POMIMO BRAKU PRZEWAGI PUNKTÓW
@@ -145,10 +147,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                         (alert) in
                         winner_id = String(describing: self.match!.player2_id)
                         self.requestParameters!["winner"] = winner_id!
-                        
                         self.updateScores()
-                        
-                        
                     })
                     
                     // ŻADEN Z GRACZY NIE WYGRYWA - GRA KOŃCZY SIĘ REMISEM
@@ -206,7 +205,15 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         }
     }
     private func updateParameters(){
-        requestParameters = ["state" : "finished", "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id, "winner": ""]
+        requestParameters = ["state" : "finished",
+                             "points_team_1" : Int(self.Player1Score.text!)!,
+                             "points_team_2" : Int(self.Player2Score.text!)!,
+                             "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!,
+                             "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!,
+                             "tournament": self.tournamentID!,
+                             "id": self.match!.id,
+                             "winner": ""
+        ]
     }
     
     @IBAction func Switched(_ sender: UISwitch) {

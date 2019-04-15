@@ -14,7 +14,6 @@
 		C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */; };
 		C3A2A40220279626001FED80 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39B34B120266CA60031C435 /* Alamofire.framework */; };
 		C3A2A40420279626001FED80 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */; };
-		C3A345661F1E91E80034DEF2 /* Logins.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A345651F1E91E80034DEF2 /* Logins.swift */; };
 		C3A3C426222B403F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
 		C3A3C451222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */; };
 		C3A3C459222B457F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
@@ -53,7 +52,6 @@
 		C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetaleMeczuViewController.swift; sourceTree = "<group>"; };
 		C39B34B120266CA60031C435 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
-		C3A345651F1E91E80034DEF2 /* Logins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logins.swift; sourceTree = "<group>"; };
 		C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kormoran Beach Party Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kormoran_Beach_Party_Tests.swift; sourceTree = "<group>"; };
 		C3A3C452222B455400C67CA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 				C3DA0DC81F097E2E00D99CC4 /* Turniej.swift */,
 				C3DA0DCE1F09AF2100D99CC4 /* Mecz.swift */,
 				C3F05A591F17A15C00C2333C /* Reachability.swift */,
-				C3A345651F1E91E80034DEF2 /* Logins.swift */,
 				C3DA0DCA1F097FC700D99CC4 /* TurniejTableViewCell.swift */,
 				C3DA0DCC1F09807F00D99CC4 /* TurniejeTableViewController.swift */,
 				C3DA0DD01F09B25E00D99CC4 /* MeczeTableViewController.swift */,
@@ -325,7 +322,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3DA0DD11F09B25E00D99CC4 /* MeczeTableViewController.swift in Sources */,
-				C3A345661F1E91E80034DEF2 /* Logins.swift in Sources */,
 				C31425F920C5863400564C38 /* NotificationsTableViewController.swift in Sources */,
 				C3DA0DCF1F09AF2100D99CC4 /* Mecz.swift in Sources */,
 				C3DA0DCB1F097FC700D99CC4 /* TurniejTableViewCell.swift in Sources */,

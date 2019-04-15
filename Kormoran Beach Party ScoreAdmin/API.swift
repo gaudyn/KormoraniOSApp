@@ -20,8 +20,8 @@ struct APIError: Error{
 }
 
 class API {
-    let url = "https://code.legnica.pl/kormoran/api"
-    let subUrls = [
+    static let url = "https://code.legnica.pl/kormoran/api"
+    static let subUrls = [
         "tournaments" : "/tournaments.php",
         "matches" : "/matches.php",
         "administrate" : "/administrate.php"
