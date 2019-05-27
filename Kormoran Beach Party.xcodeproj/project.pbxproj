@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C31425F920C5863400564C38 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31425F820C5863400564C38 /* NotificationsTableViewController.swift */; };
-		C31425FB20C586C900564C38 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31425FA20C586C900564C38 /* MessagesTableViewController.swift */; };
 		C34E9468209F7546005F0500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34E9467209F7546005F0500 /* SettingsView.swift */; };
 		C37BE73020AF699200C1F749 /* Disk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37BE72F20AF699200C1F749 /* Disk.framework */; };
 		C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */; };
@@ -43,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C31425F820C5863400564C38 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
-		C31425FA20C586C900564C38 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
 		C34E9467209F7546005F0500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C36C1268222B2CBE00AE8760 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C37BE72F20AF699200C1F749 /* Disk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Disk.framework; path = Carthage/Build/iOS/Disk.framework; sourceTree = "<group>"; };
@@ -156,8 +152,6 @@
 				C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */,
 				C34E9467209F7546005F0500 /* SettingsView.swift */,
 				C3DA0D9E1F09752E00D99CC4 /* Main.storyboard */,
-				C31425FA20C586C900564C38 /* MessagesTableViewController.swift */,
-				C31425F820C5863400564C38 /* NotificationsTableViewController.swift */,
 				C3DA0DA31F09752E00D99CC4 /* LaunchScreen.storyboard */,
 				C3DA0DA61F09752E00D99CC4 /* Info.plist */,
 				C3DF0F3720AB8D7300CAF494 /* Localizable.strings */,
@@ -322,13 +316,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3DA0DD11F09B25E00D99CC4 /* MeczeTableViewController.swift in Sources */,
-				C31425F920C5863400564C38 /* NotificationsTableViewController.swift in Sources */,
 				C3DA0DCF1F09AF2100D99CC4 /* Mecz.swift in Sources */,
 				C3DA0DCB1F097FC700D99CC4 /* TurniejTableViewCell.swift in Sources */,
 				C3DA0DC91F097E2E00D99CC4 /* Turniej.swift in Sources */,
 				C3A3C426222B403F00C67CA3 /* API.swift in Sources */,
 				C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */,
-				C31425FB20C586C900564C38 /* MessagesTableViewController.swift in Sources */,
 				C3F05A5A1F17A15C00C2333C /* Reachability.swift in Sources */,
 				C3DA0DD31F09BB6500D99CC4 /* MeczeTableViewCell.swift in Sources */,
 				C34E9468209F7546005F0500 /* SettingsView.swift in Sources */,
