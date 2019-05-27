@@ -237,7 +237,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     }
     @IBAction func facebookTapped(_ sender: UITapGestureRecognizer) {
-        let fbURL = URL(string: "https://www.facebook.com/events/396443354172218/")
+        let fbURL = URL(string: "https://www.facebook.com/events/547305495801058/")
         UIApplication.shared.open(fbURL! , options: [:], completionHandler: nil)
         
     }
