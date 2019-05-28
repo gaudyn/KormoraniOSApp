@@ -1,8 +1,8 @@
 
 /* Class = "UILabel"; text = "Nazwa turnieju"; ObjectID = "A7Y-ZO-NfA"; */
-"A7Y-ZO-NfA.text" = "Tournament's name";
+"A7Y-ZO-NfA.text" = "Nazwa turnieju";
 
-/* Class = "UITabBarItem"; title = "Turnieje"; ObjectID = "Ath-lC-RCF"; */
+/* Class = "UITabBarItem"; title = "Tournaments"; ObjectID = "Ath-lC-RCF"; */
 "Ath-lC-RCF.title" = "Tournaments";
 
 /* Class = "UILabel"; text = "Facebook"; ObjectID = "L27-oT-hP0"; */
@@ -12,52 +12,52 @@
 "LEL-yI-rOn.text" = "Player 1";
 
 /* Class = "UILabel"; text = "Stan"; ObjectID = "LKa-Sk-fwP"; */
-"LKa-Sk-fwP.text" = "State";
+"LKa-Sk-fwP.text" = "Stan";
 
-/* Class = "UILabel"; text = "Zespoły"; ObjectID = "NRr-Ze-tbd"; */
+/* Class = "UILabel"; text = "Teams"; ObjectID = "NRr-Ze-tbd"; */
 "NRr-Ze-tbd.text" = "Teams";
 
-/* Class = "UINavigationItem"; title = "Turnieje"; ObjectID = "Ni4-ev-zrI"; */
+/* Class = "UINavigationItem"; title = "Tournaments"; ObjectID = "Ni4-ev-zrI"; */
 "Ni4-ev-zrI.title" = "Tournaments";
 
-/* Class = "UINavigationItem"; title = "Ustawienia"; ObjectID = "O5k-pt-hD6"; */
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "O5k-pt-hD6"; */
 "O5k-pt-hD6.title" = "Settings";
 
 /* Class = "UINavigationItem"; title = "Nazwa Turnieju"; ObjectID = "TmV-Jz-S7a"; */
-"TmV-Jz-S7a.title" = "Tournament's name";
+"TmV-Jz-S7a.title" = "Nazwa Turnieju";
 
 /* Class = "UILabel"; text = "Player 2"; ObjectID = "Z6f-gq-RY8"; */
 "Z6f-gq-RY8.text" = "Player 2";
 
-/* Class = "UITableViewSection"; headerTitle = "Nasze social media"; ObjectID = "aTH-W4-Rm2"; */
+/* Class = "UITableViewSection"; headerTitle = "Our social media"; ObjectID = "aTH-W4-Rm2"; */
 "aTH-W4-Rm2.headerTitle" = "Our social media";
 
 /* Class = "UITextField"; placeholder = "0"; ObjectID = "aXJ-cH-Bwc"; */
 "aXJ-cH-Bwc.placeholder" = "0";
 
-/* Class = "UITableViewSection"; headerTitle = "Logowanie do serwisu"; ObjectID = "bdl-op-SiR"; */
-"bdl-op-SiR.headerTitle" = "Login";
+/* Class = "UITableViewSection"; headerTitle = "Log in to Kormoran"; ObjectID = "bdl-op-SiR"; */
+"bdl-op-SiR.headerTitle" = "Log in to Kormoran";
 
 /* Class = "UILabel"; text = "Player 2 Score:"; ObjectID = "blH-LR-g4N"; */
 "blH-LR-g4N.text" = "Player 2 Score:";
 
-/* Class = "UITabBarItem"; title = "Ustawienia"; ObjectID = "eM2-bi-R5i"; */
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "eM2-bi-R5i"; */
 "eM2-bi-R5i.title" = "Settings";
 
 /* Class = "UILabel"; text = "0 : 0"; ObjectID = "fIJ-1f-dTf"; */
 "fIJ-1f-dTf.text" = "0 : 0";
 
 /* Class = "UILabel"; text = "Jan Nowak"; ObjectID = "jah-dw-JmK"; */
-"jah-dw-JmK.text" = "John Doe";
+"jah-dw-JmK.text" = "Jan Nowak";
 
 /* Class = "UINavigationItem"; title = "Detale meczu"; ObjectID = "m7t-3e-xnm"; */
-"m7t-3e-xnm.title" = "Match's details";
+"m7t-3e-xnm.title" = "Detale meczu";
 
-/* Class = "UINavigationItem"; title = "Zespoły"; ObjectID = "qRA-gf-Z1f"; */
+/* Class = "UINavigationItem"; title = "Teams"; ObjectID = "qRA-gf-Z1f"; */
 "qRA-gf-Z1f.title" = "Teams";
 
-/* Class = "UILabel"; text = "Automatycznie ustawiaj zwycięzcę"; ObjectID = "qsi-iG-omO"; */
-"qsi-iG-omO.text" = "Automatically set match's winner";
+/* Class = "UILabel"; text = "Automatically choose the winner"; ObjectID = "qsi-iG-omO"; */
+"qsi-iG-omO.text" = "Automatically choose the winner";
 
 /* Class = "UITextField"; placeholder = "0"; ObjectID = "sgA-jo-tcp"; */
 "sgA-jo-tcp.placeholder" = "0";
@@ -65,5 +65,5 @@
 /* Class = "UILabel"; text = "Player 1 Score:"; ObjectID = "sv3-5Q-1SY"; */
 "sv3-5Q-1SY.text" = "Player 1 Score:";
 
-/* Class = "UITableViewSection"; headerTitle = "Podstawowe ustawienia"; ObjectID = "vby-pa-Qwk"; */
+/* Class = "UITableViewSection"; headerTitle = "Basic settings"; ObjectID = "vby-pa-Qwk"; */
 "vby-pa-Qwk.headerTitle" = "Basic settings";
