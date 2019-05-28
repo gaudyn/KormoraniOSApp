@@ -46,6 +46,7 @@
 		C37BE72F20AF699200C1F749 /* Disk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Disk.framework; path = Carthage/Build/iOS/Disk.framework; sourceTree = "<group>"; };
 		C38370A81F37D706005A46D6 /* Kormoran Beach Party.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Kormoran Beach Party.entitlements"; sourceTree = "<group>"; };
 		C38A02C1229DA4EE00F194E0 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		C38A02C3229DA56500F194E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetaleMeczuViewController.swift; sourceTree = "<group>"; };
 		C39B34B120266CA60031C435 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
@@ -344,6 +345,7 @@
 			children = (
 				C3DA0D9F1F09752E00D99CC4 /* Base */,
 				C38A02C1229DA4EE00F194E0 /* pl */,
+				C38A02C3229DA56500F194E0 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
