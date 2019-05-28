@@ -92,7 +92,6 @@ class API {
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.global(qos: .utility).async {
-                
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
                     callback(nil, APIError(kind: .invalidStatusCode))
                 }
@@ -154,11 +153,8 @@ class API {
             print(error.localizedDescription)
         }
         
+        request.useJsonBody()
         
-        
-        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-
         let task = URLSession.shared.dataTask(with: request){(data, response, error) in
             DispatchQueue.global(qos: .utility).async {
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
@@ -194,8 +190,7 @@ class API {
         }catch{
             print(error.localizedDescription)
         }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.useJsonBody()
         
         let task = URLSession.shared.dataTask(with: request){(data, response, error) in
             DispatchQueue.global(qos: .utility).async {
@@ -218,4 +213,10 @@ class API {
         
     }
     
+}
+extension URLRequest{
+    mutating func useJsonBody(){
+        self.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        self.addValue("application/json", forHTTPHeaderField: "Accept")
+    }
 }
