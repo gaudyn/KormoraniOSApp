@@ -152,18 +152,6 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     // MARK: - Navigation
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        
-        guard let selectedMatchCell = sender as? TurniejTableViewCell else {
-            fatalError("Unexpected sender: \(sender)")
-        }
-        
-        guard let indexPath = tableView.indexPath(for: selectedMatchCell) else {
-            fatalError("The selected cell is not being displayed by the table")
-        }
-        
-        if(tournaments[indexPath.row].state == "Oczekujący" && KeychainWrapper.standard.string(forKey: "USER_PASS") == nil){
-            return false
-        }
         return true
     }
     
