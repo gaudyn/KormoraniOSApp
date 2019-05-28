@@ -38,9 +38,15 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
         navigationController?.navigationBar.prefersLargeTitles = true;
+        
         UserPicture.layer.cornerRadius = UserPicture.frame.size.width/2;
         UserPicture.clipsToBounds = true;
+        
+        UserTeams.isUserInteractionEnabled = false;
+        UserTeams.contentView.alpha = 0.43;
+        
         UserLogged = true
         do{
         let retrievedSettings = try Disk.retrieve("UserData/Settings.json", from: .applicationSupport, as: Settings.self)
@@ -87,10 +93,8 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    /*
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }*/
+    
+    
     @IBAction func PictureTapped(_ sender: UITapGestureRecognizer) {
         let imagePickerController = UIImagePickerController()
         
@@ -104,8 +108,9 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        // Local variable inserted by Swift 4.2 migrator.
+        
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         var image: UIImage!
         if let selectedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage{
@@ -200,8 +205,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             loginAlert.addAction(UIAlertAction(title: "Anuluj", style: .cancel, handler: nil));
             self.present(loginAlert, animated: true, completion: nil);
         }
-        UserTeams.isUserInteractionEnabled = false;
-        UserTeams.contentView.alpha = 0.43;
         
     }
     
@@ -214,13 +217,9 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         if UserLogged {
             UserData.text = KeychainWrapper.standard.string(forKey: "USER_LOGIN");
             UserPicture.isHidden = false;
-            UserTeams.isUserInteractionEnabled = true;
-            UserTeams.contentView.alpha = 1;
         }else{
             UserData.text = "Zaloguj się do serwisu";
             UserPicture.isHidden = true;
-            UserTeams.isUserInteractionEnabled = false;
-            UserTeams.contentView.alpha = 0.43;
         }
     }
     
