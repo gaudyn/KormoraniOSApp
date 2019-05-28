@@ -53,15 +53,15 @@ class Turniej{
             self.photo = #imageLiteral(resourceName: "Football")
         }
         //USTAWIANIE KOLORU TURNIEJU I JEGO WAGI (POTRZEBNE DO SORTOWANIA)
-        if(state == "Oczekujący"){
+        if(state == NSLocalizedString("stateReady", comment: "Tournament is ready to play")){
             self.state_photo = UIImage(named: "Circle-Green")
             weight = 1
         }
-        if(state == "Zakończony"){
+        if(state == NSLocalizedString("stateFinished", comment: "Tournament has been finished")){
             self.state_photo = UIImage(named: "Circle-Black")
             weight = 0
         }
-        if(state == "Trwający"){
+        if(state == NSLocalizedString("stateProgress", comment: "Tournament is in progress")){
             self.state_photo = UIImage(named: "Circle-Yellow")
             weight = 2
         }

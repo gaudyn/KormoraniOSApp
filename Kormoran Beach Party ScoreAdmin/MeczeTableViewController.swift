@@ -43,7 +43,17 @@ class MeczeTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if matches.count > 0{
+            return 1
+        }
+        let bgLabel = UILabel();
+        bgLabel.text = NSLocalizedString("tableViewEmpty", comment: "Empty table view")
+        bgLabel.textColor = .gray
+        bgLabel.textAlignment = .center
+        bgLabel.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: tableView.bounds.size.width, height: tableView.bounds.size.height/2))
+        tableView.tableFooterView = bgLabel
+        tableView.separatorStyle = .none
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,7 +94,7 @@ class MeczeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let changeMatchToInProgress = UITableViewRowAction(style: .normal, title: "Trwający") { action, index in
+        let changeMatchToInProgress = UITableViewRowAction(style: .normal, title: NSLocalizedString("stateProgress", comment: "Match is in progress")) { action, index in
             
             let params = ["state" : "active", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String:Any]
             
@@ -92,7 +102,7 @@ class MeczeTableViewController: UITableViewController {
         }
         changeMatchToInProgress.backgroundColor = .orange
         
-        let changeMatchToReady = UITableViewRowAction(style: .normal, title: "Oczekujący") { action, index in
+        let changeMatchToReady = UITableViewRowAction(style: .normal, title: NSLocalizedString("stateReady", comment: "Match is ready to play")) { action, index in
             
             let params = ["state" : "ready-to-play", "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament" : self.tournament!.id, "id" : self.matches[index.row].id] as [String: Any]
             

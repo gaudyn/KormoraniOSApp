@@ -79,7 +79,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
             }
             
         }else{
-            UserData.text = "Zaloguj się do serwisu";
+            UserData.text = NSLocalizedString("login", comment: "Please log in");
             UserPicture.isHidden = true;
             UserTeams.isUserInteractionEnabled = false;
             UserTeams.contentView.alpha = 0.43;
@@ -136,8 +136,8 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     @IBAction func LoginTapped(_ sender: UITapGestureRecognizer) {
         
         if UserLogged{
-            let alert = UIAlertController(title: nil, message: "Czy na pewno chcesz się wylogować?", preferredStyle: .actionSheet);
-            alert.addAction(UIAlertAction(title: "Wyloguj", style: .destructive, handler: { (action) -> Void in
+            let alert = UIAlertController(title: nil, message: NSLocalizedString("logoutMessage", comment: "Are you sure you want to log out?"), preferredStyle: .actionSheet);
+            alert.addAction(UIAlertAction(title: NSLocalizedString("logout", comment: "Log out"), style: .destructive, handler: { (action) -> Void in
                 KeychainWrapper.standard.removeObject(forKey: "USER_LOGIN")
                 KeychainWrapper.standard.removeObject(forKey: "USER_PASS")
                 self.switchLogin()
@@ -147,23 +147,23 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
                 popover.sourceView = self.view
                 popover.sourceRect = UserData.frame
             }
-            alert.addAction(UIAlertAction(title: "Anuluj", style: .default));
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancelAction", comment: "Cancel the action"), style: .default));
             self.present(alert, animated: true, completion: nil);
         }else{
-            loginAlert = UIAlertController(title: "Logowanie", message: "Zaloguj się do serwisu", preferredStyle: .alert);
+            loginAlert = UIAlertController(title: NSLocalizedString("loginTitle", comment: "Title for logging in screen"), message: NSLocalizedString("loginMessage", comment: "Loggining in message"), preferredStyle: .alert);
             
             loginAlert.addTextField(configurationHandler: { (loginField) -> Void in
-                loginField.placeholder = "Login";
+                loginField.placeholder = NSLocalizedString("username", comment: "Username");
                 loginField.textAlignment = .center;
                 loginField.addTarget(self, action: #selector(self.enableLoginButton(_:)), for: .editingChanged);
             })
             loginAlert.addTextField(configurationHandler: { (passwordField) -> Void in
-                passwordField.placeholder = "Hasło";
+                passwordField.placeholder = NSLocalizedString("password", comment: "Password");
                 passwordField.isSecureTextEntry = true;
                 passwordField.textAlignment = .center;
                 passwordField.addTarget(self, action: #selector(self.enableLoginButton(_:)), for: .editingChanged);
             });
-            let okAction = UIAlertAction(title: "Zaloguj", style: .default, handler: { (action) -> Void in
+            let okAction = UIAlertAction(title: NSLocalizedString("login", comment: "Log in"), style: .default, handler: { (action) -> Void in
                 
                 let hash = self.loginAlert.textFields![1].text!.sha256().uppercased()
                 
@@ -175,7 +175,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
                         DispatchQueue.main.async {
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             self.dismiss(animated: true, completion: nil)
-                            let newMessage = NSAttributedString(string: "Podano błędny login lub hasło.\nZaloguj się ponownie.", attributes:convertToOptionalNSAttributedStringKeyDictionary([
+                            let newMessage = NSAttributedString(string: NSLocalizedString("invalidLogin", comment: "Wrong usernamen or password"), attributes:convertToOptionalNSAttributedStringKeyDictionary([
                                 convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : UIColor.red
                                 ]))
                             self.loginAlert.message = ""
@@ -202,7 +202,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
             
             okAction.isEnabled = false;
             loginAlert.addAction(okAction);
-            loginAlert.addAction(UIAlertAction(title: "Anuluj", style: .cancel, handler: nil));
+            loginAlert.addAction(UIAlertAction(title: NSLocalizedString("cancelAction", comment: "Cancel"), style: .cancel, handler: nil));
             self.present(loginAlert, animated: true, completion: nil);
         }
         
@@ -218,7 +218,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
             UserData.text = KeychainWrapper.standard.string(forKey: "USER_LOGIN");
             UserPicture.isHidden = false;
         }else{
-            UserData.text = "Zaloguj się do serwisu";
+            UserData.text = NSLocalizedString("login", comment: "Please, log in");
             UserPicture.isHidden = true;
         }
     }

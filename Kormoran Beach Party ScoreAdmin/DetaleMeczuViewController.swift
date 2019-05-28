@@ -114,8 +114,8 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                 if canAutoSetWinner(){
                     setAutoWinner()
                 } else{
-                    let promt = UIAlertController(title: "Remis",
-                                                  message: "Nie można określić zwycięscy automatycznie.\nProszę wybrać ręcznie:",
+                    let promt = UIAlertController(title: NSLocalizedString("tie", comment: "The result is tie"),
+                                                  message: NSLocalizedString("tieMessage", comment: "Please choose the winner"),
                                                   preferredStyle: UIAlertController.Style.actionSheet)
                     
                     promt.addAction(getWinnerAlert(winner: Pl1Name!))
@@ -129,7 +129,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
                 }
                 
             }else{
-                let promt = UIAlertController(title: "Wybierz zwycięzcę", message: nil, preferredStyle: .actionSheet)
+                let promt = UIAlertController(title: NSLocalizedString("chooseWinner", comment: "Please choose winner"), message: nil, preferredStyle: .actionSheet)
                 
                 promt.addAction(getWinnerAlert(winner: Pl1Name!))
                 if match!.ties{
@@ -184,7 +184,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     }
     
     func getTieAlert() -> UIAlertAction{
-        let alert = UIAlertAction(title: "Remis", style: .default, handler: {
+        let alert = UIAlertAction(title: NSLocalizedString("tie", comment: "The tie is real"), style: .default, handler: {
             (alert) in
             self.requestParameters!["winner"] = "tie"
             self.updateScores()
@@ -193,7 +193,7 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     }
     
     func getCancelAlert() -> UIAlertAction{
-        let alert = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
+        let alert = UIAlertAction(title: NSLocalizedString("cancelAction", comment: "Cancel the action"), style: .cancel, handler: nil)
         return alert
     }
     

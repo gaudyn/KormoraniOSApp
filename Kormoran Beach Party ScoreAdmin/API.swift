@@ -57,13 +57,13 @@ class API {
                             var status = "undefined"
                             // USTAWIANIE STATUSU TURNIEJU
                             if(tournament["state"] as? String == "ready-to-play"){
-                                status = "Oczekujący"
+                                status = NSLocalizedString("stateReady", comment: "Tournament is ready to play")
                             }
                             if(tournament["state"] as? String == "active"){
-                                status = "Trwający"
+                                status = NSLocalizedString("stateProgress", comment: "Tournament is in progress")
                             }
                             if(tournament["state"] as? String == "finished"){
-                                status = "Zakończony"
+                                status = NSLocalizedString("stateFinished", comment: "Tournaments has been finished")
                             }
                             let turniej = Turniej(name: tournament["rep_name"] as? String, game: tournament["game"] as? String, state: status, id: tournament["name"] as? String, ties: false)
                             if turniej != nil{
