@@ -1,9 +1,9 @@
 //
 //  DetaleMeczuViewController.swift
-//  Kormoran Beach Party ScoreAdmin
+//  Kormoran Admin System
 //
-//  Created by Administrator on 10.07.2017.
-//  Copyright © 2017 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
+//  Created by Gniewomir Gaudyn on 10.07.2017.
+//  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
 import UIKit
@@ -19,36 +19,43 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    //Player 1 outlets
-    
     @IBOutlet weak var Player1Name: UILabel!
     @IBOutlet weak var Player1Score: UITextField!
-    //Player 2 outlets
     
     @IBOutlet weak var Player2Name: UILabel!
     @IBOutlet weak var Player2Score: UITextField!
     
-    //Vars
     var Pl1Win = false
     var Pl2Win = false
     var match: Mecz?
     var Pl1Name: String?
     var Pl2Name: String?
     var tournamentID: String?
+    var requestParameters: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // USTAW DELEGATÓW PÓL TEKSTOWYCH
-        Player1Score.delegate = self
-        Player2Score.delegate = self
+        setupTextFieldDelegates()
         
-        Player1Name.text = Pl1Name!+":"
-        Player2Name.text = Pl2Name!+":"
+        setupPlayersNames()
         
         updateSaveButton()
         
-        // DODAJ DO KLAWIATURY PRZYCISK 'GOTOWE'
+        setupKeyboardToolbar()
+    }
+    
+    func setupTextFieldDelegates(){
+        Player1Score.delegate = self
+        Player2Score.delegate = self
+    }
+    
+    func setupPlayersNames(){
+        Player1Name.text = Pl1Name!+":"
+        Player2Name.text = Pl2Name!+":"
+    }
+    
+    func setupKeyboardToolbar(){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -56,10 +63,9 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
         toolbar.setItems([doneButton], animated: false)
         Player1Score.inputAccessoryView = toolbar
         Player2Score.inputAccessoryView = toolbar
-        
     }
+    
     @objc func doneClicked(){
-        // ZAKOŃCZ EDYCJĘ TEKSTU
         updateSaveButton()
         view.endEditing(true)
     }
@@ -88,7 +94,6 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Navigation
      
      @IBAction func Cancel(_ sender: UIBarButtonItem) {
-        // WRÓĆ SIĘ DO POPRZEDNIEGO OKNA
         if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
         }
@@ -99,208 +104,111 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         super.prepare(for: segue, sender: sender)
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        // OPCJONALNE ALERTY KIEDY WCIŚNIĘTO PRZYCISK ZAPISANIA
-        
         if let button = sender as? UIBarButtonItem, button === saveButton{
+            updateParameters()
             
-            var winner_id: String!
-            var retrievedSettings: Settings!
-            do{
-                retrievedSettings = try Disk.retrieve("UserData/Settings.json", from: .applicationSupport, as: Settings.self)
-            }catch{
-                retrievedSettings = Settings(autoSetMatchWinner: true)
-            }
-            
-            // JEŻELI MA WYŁONIĆ ZWYCIĘZCĘ
-            if retrievedSettings.autoSetMatchWinner{
+            if isAutoSetMatchWinner(){
                 
-                if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
-                    // GRACZ 1 ZDOBYŁ WIĘCEJ PUNKTÓW
-                    winner_id = Pl1Name!
-                } else if Int(Player1Score.text!)! < Int(Player2Score.text!)!{
-                    // GRACZ 2 ZDOBYŁ WIĘCEJ PUNKTÓW
-                    winner_id = Pl2Name!
-                }else{
-                    // ŻADEN Z GRACZY NIE ZDOBYŁ WIĘCEJ PUNKTÓW
-                    let promt = UIAlertController(title: "Remis", message: "Nie można określić zwycięscy automatycznie.\nProszę wybrać ręcznie:", preferredStyle: UIAlertController.Style.actionSheet)
+                if canAutoSetWinner(){
+                    setAutoWinner()
+                } else{
+                    let promt = UIAlertController(title: NSLocalizedString("tie", comment: "The result is tie"),
+                                                  message: NSLocalizedString("tieMessage", comment: "Please choose the winner"),
+                                                  preferredStyle: UIAlertController.Style.actionSheet)
                     
-                    // GRACZ 1 WYGRYWA POMIMO BRAKU PRZEWAGI PUNKTÓW
-                    let pl1_win = UIAlertAction(title: Pl1Name!, style: .default, handler:{
-                        (alert) in
-                        winner_id = String(describing: self.match!.player1_id)
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournamentId": self.tournamentID!, "matchId": self.match!.id]
-                        API().updateMatch(parameters: params, callback: {(error) in
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            guard error == nil else{
-                                print("ERROR")
-                                print(error)
-                                return
-                            }
-                            
-                        })
-                        
-                        let owningNavigationController = self.navigationController
-                        owningNavigationController?.popViewController(animated: true)
-                        
-                        
-                    })
-                    
-                    // GRACZ 2 WYGRYWA POMIMO BRAKU PRZEWAGI PUNKTÓW
-                    let pl2_win = UIAlertAction(title: Pl2Name!, style: .default, handler:{
-                        (alert) in
-                        winner_id = String(describing: self.match!.player2_id)
-                        print ("Zwycięstca: \(winner_id)")
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournamentId": self.tournamentID!, "matchId": self.match!.id]
-                       
-                        API().updateMatch(parameters: params, callback: {(error) in
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            guard error == nil else{
-                                print("ERROR")
-                                print(error)
-                                return
-                            }
-                            
-                        })
-                        let owningNavigationController = self.navigationController
-                        owningNavigationController?.popViewController(animated: true)
-                        
-                        
-                    })
-                    
-                    // ŻADEN Z GRACZY NIE WYGRYWA - GRA KOŃCZY SIĘ REMISEM
-                    let tie = UIAlertAction(title: "Remis", style: .default, handler:{
-                        (alert) in
-                        winner_id = "tie"
-                        print ("Zwycięstca: \(winner_id)")
-                        let params: Parameters = ["state" : "finished","winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!), "points_team_2" : Int(self.Player2Score.text!), "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                        
-                        API().updateMatch(parameters: params, callback: {(error) in
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            guard error == nil else{
-                                print("ERROR")
-                                print(error)
-                                return
-                            }
-                            
-                        })
-                        let owningNavigationController = self.navigationController
-                        owningNavigationController?.popViewController(animated: true)
-                        
-                    })
-                    let cancel = UIAlertAction(title:"Anuluj", style: .cancel, handler: nil)
-                    promt.addAction(pl1_win)
+                    promt.addAction(getWinnerAlert(winner: Pl1Name!))
                     if (match?.ties)!{
-                        promt.addAction(tie)
+                        promt.addAction(getTieAlert())
                     }
-                    promt.addAction(pl2_win)
-                    promt.addAction(cancel)
+                    promt.addAction(getWinnerAlert(winner: Pl2Name!))
+                    promt.addAction(getCancelAlert())
                     self.present(promt, animated: true, completion:nil)
                     return
                 }
                 
-                let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                print(params)
-                
-                API().updateMatch(parameters: params, callback: {(error) in
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
-                    guard error == nil else{
-                        print("ERROR")
-                        print(error)
-                        return
-                    }
-                    
-                })
             }else{
-                let promt = UIAlertController(title: "Wybierz zwycięzcę", message: nil, preferredStyle: .actionSheet)
-                let team1 = UIAlertAction(title: self.Pl1Name!, style: .default, handler: {
-                    (alert) in
-                    winner_id = self.Pl1Name!
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                    print(params)
-                    
-                    API().updateMatch(parameters: params, callback: {(error) in
-                        guard error == nil else{
-                            print("ERROR")
-                            print(error)
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            self.navigationController!.popViewController(animated: true)
-                        }
-                    })
-                    
-                })
-                let tie = UIAlertAction(title: "Remis", style: .default, handler: {
-                    (alert) in
-                    winner_id = "tie"
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                    print(params)
-                   
-                    API().updateMatch(parameters: params, callback: {(error) in
-                        guard error == nil else{
-                            print("ERROR")
-                            print(error)
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            self.navigationController!.popViewController(animated: true)
-                        }
-                    })
-                })
-                let team2 = UIAlertAction(title: self.Pl2Name, style: .default, handler: {
-                    (alert) in
-                    winner_id = self.Pl2Name!
-                    let params: Parameters = ["state" : "finished", "winner" : winner_id!, "points_team_1" : Int(self.Player1Score.text!)!, "points_team_2" : Int(self.Player2Score.text!)!, "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!, "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!, "tournament": self.tournamentID!, "id": self.match!.id]
-                    print(params)
-                    
-                    API().updateMatch(parameters: params, callback: {(error) in
-                        guard error == nil else{
-                            print("ERROR")
-                            print(error)
-                            DispatchQueue.main.async {
-                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            }
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            self.navigationController!.popViewController(animated: true)
-                        }
-                    })
-                })
-                let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
+                let promt = UIAlertController(title: NSLocalizedString("chooseWinner", comment: "Please choose winner"), message: nil, preferredStyle: .actionSheet)
                 
-                promt.addAction(team1)
+                promt.addAction(getWinnerAlert(winner: Pl1Name!))
                 if match!.ties{
-                    promt.addAction(tie)
+                    promt.addAction(getTieAlert())
                 }
-                promt.addAction(team2)
-                promt.addAction(cancel)
+                promt.addAction(getWinnerAlert(winner: Pl2Name!))
+                promt.addAction(getCancelAlert())
+                
                 self.present(promt, animated: true, completion: nil)
             }
         }
     }
+    
+    func isAutoSetMatchWinner() -> Bool{
+        var retrievedSettings: Settings!
+        do{
+            retrievedSettings = try Disk.retrieve("UserData/Settings.json", from: .applicationSupport, as: Settings.self)
+        }catch{
+            retrievedSettings = Settings(autoSetMatchWinner: true)
+        }
+        return retrievedSettings.autoSetMatchWinner
+    }
+    
+    func canAutoSetWinner() -> Bool{
+        if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
+            return true
+        } else if Int(Player1Score.text!)! < Int(Player2Score.text!)!{
+            return true
+        }
+        return false
+    }
+    
+    func setAutoWinner(){
+        var winnerId: String
+        if Int(Player1Score.text!)! > Int(Player2Score.text!)!{
+            winnerId = Pl1Name!
+        } else{
+            winnerId = Pl2Name!
+        }
+        
+        requestParameters!["winner"] = winnerId
+        updateScores()
+    }
+    
+    func getWinnerAlert(winner: String) -> UIAlertAction{
+        let alert = UIAlertAction(title: winner, style: .default, handler: {
+            (alert) in
+            self.requestParameters!["winner"] = winner
+            self.updateScores()
+        })
+        return alert
+    }
+    
+    func getTieAlert() -> UIAlertAction{
+        let alert = UIAlertAction(title: NSLocalizedString("tie", comment: "The tie is real"), style: .default, handler: {
+            (alert) in
+            self.requestParameters!["winner"] = "tie"
+            self.updateScores()
+        })
+        return alert
+    }
+    
+    func getCancelAlert() -> UIAlertAction{
+        let alert = UIAlertAction(title: NSLocalizedString("cancelAction", comment: "Cancel the action"), style: .cancel, handler: nil)
+        return alert
+    }
+    
+    private func updateParameters(){
+        requestParameters = ["state" : "finished",
+                             "points_team_1" : Int(self.Player1Score.text!)!,
+                             "points_team_2" : Int(self.Player2Score.text!)!,
+                             "username": KeychainWrapper.standard.string(forKey: "USER_LOGIN")!,
+                             "password": KeychainWrapper.standard.string(forKey: "USER_PASS")!,
+                             "tournament": self.tournamentID!,
+                             "id": self.match!.id,
+                             "winner": ""
+        ]
+    }
+    
     @IBAction func Switched(_ sender: UISwitch) {
         updateSaveButton()
     }
@@ -318,5 +226,26 @@ class DetaleMeczuViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
+    private func updateScores(){
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
+        print(self.requestParameters!)
+        API.updateMatch(parameters: self.requestParameters!, callback: {(error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            guard error == nil else{
+                print("ERROR")
+                print(error)
+                
+                return
+            }
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        
+        })
+    }
 }

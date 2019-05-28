@@ -1,9 +1,9 @@
 //
 //  TurniejeTableViewController.swift
-//  Kormoran Beach Party ScoreAdmin
+//  Kormoran Admin System
 //
-//  Created by Administrator on 02.07.2017.
-//  Copyright © 2017 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
+//  Created by Gniewomir Gaudyn on 02.07.2017.
+//  Copyright © 2019 Kormoran Beach Party Sekcja Informatyczna. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,46 @@ import Alamofire
 import SwiftKeychainWrapper
 
 class TurniejeTableViewController: UITableViewController, UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+
+    var tournaments = [Turniej]()
+    var filteredTournaments = [Turniej]()
+    var refresher: UIRefreshControl!
+    var searchController: UISearchController!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true;
+        
+        setupRefresher()
+        
+        setupSearchController()
+        
+        definesPresentationContext = true
+        
+        if isInternetConnection(){
+            loadTournaments();
+        }else{
+            noInternetConnectionAlert()
+        }
+    }
+    
+    func setupRefresher(){
+        refresher = UIRefreshControl()
+        refresher.attributedTitle = NSAttributedString(string: NSLocalizedString("refresherString", comment: "A string for a refresher"))
+        refresher.addTarget(self, action: #selector(TurniejeTableViewController.refreshTableContents), for: UIControl.Event.valueChanged)
+        tableView.refreshControl = refresher;
+    }
+    
+    func setupSearchController(){
+        searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = NSLocalizedString("search", comment: "Look for tournaments")
+        
+    }
+    
+    internal func updateSearchResults(for searchController: UISearchController) {
         self.filteredTournaments =  self.tournaments.filter { (turniej: Turniej) -> Bool in
             if turniej.name.lowercased().contains(self.searchController.searchBar.text!.lowercased()) {
                 return true
@@ -25,81 +64,28 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         self.tableView.reloadData()
     }
     
-
-    var tournaments = [Turniej]()
-    var filteredTournaments = [Turniej]()
-    var refresher: UIRefreshControl!
-    var searchController: UISearchController!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true;
-        
-        
-        // DODAJ MOŻLIWOŚĆ ODŚWIEŻANIA TABELI
-        refresher = UIRefreshControl()
-        refresher.attributedTitle = NSAttributedString(string: NSLocalizedString("refresherString", comment: "A string for a refresher")) 
-        refresher.addTarget(self, action: #selector(TurniejeTableViewController.refresh), for: UIControl.Event.valueChanged)
-        tableView.refreshControl = refresher;
-        
-        
-        
-        searchController = UISearchController(searchResultsController: nil)
-        navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Wyszukaj turnieje"
-        
-        definesPresentationContext = true
-        
-        
-        // SPRAWDŹ POŁĄCZENIE Z INTERNETEM
-        if Reachability.isConnectedToNetwork() == true{
-            loadChallongeTournaments();
+    @objc func refreshTableContents(){
+        if isInternetConnection(){
+            loadTournaments()
         }else{
-            //WYŚWIETL ALERT O BRAKU INTERNETU
-            let alertController = UIAlertController(title: NSLocalizedString("noInternet", comment: "A string for no internet alert"), message: NSLocalizedString("noInternetMessage", comment: "Message for no internet alert"), preferredStyle: UIAlertController.Style.alert)
-            let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+            noInternetConnectionAlert()
         }
-        
-        
-        
+        refresher.endRefreshing()
     }
     
-    @objc func refresh(){
-        //SPRAWDŹ POŁĄCZENIE Z INTERNETEM
-        if Reachability.isConnectedToNetwork() == true{
-            let semaphore = DispatchSemaphore(value: 1)
-            //CZEKAJ NA WCZYTANIE DANYCH
-            semaphore.wait()
-            tournaments.removeAll()
-            loadChallongeTournaments()
-            semaphore.signal()
-            // PRZEŁADUJ DANE W TABELI
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
-            
-            // ZAKOŃCZ ODŚWIEŻANIE
-            refresher.endRefreshing()
-        }else{
-            // WYŚWIETL ALERT O BRAKU INTERNETU
-            let alertController = UIAlertController(title: NSLocalizedString("noInternet", comment: "A string for no internet alert"), message: NSLocalizedString("noInternetMessage", comment: "Message for no internet alert"), preferredStyle: UIAlertController.Style.alert)
-            let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion:({
-                self.refresher.endRefreshing()
-                return
-            }))
-        }
-        
+    func isInternetConnection() -> Bool{
+        return Reachability.isConnectedToNetwork()
+    }
+    
+    func noInternetConnectionAlert(){
+        let alertController = UIAlertController(title: NSLocalizedString("noInternet", comment: "A string for no internet alert"), message: NSLocalizedString("noInternetMessage", comment: "Message for no internet alert"), preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "A string for ok action"), style: UIAlertAction.Style.cancel)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -123,10 +109,10 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !isFiltering(){
-            return tournaments.count
-        }else{
+        if isTableFiltered(){
             return filteredTournaments.count
+        }else{
+            return tournaments.count
         }
     }
 
@@ -136,17 +122,17 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TurniejTableViewCell else{
             fatalError("Cell is not an instance of TurniejeTableViewCell")
         }
-        let tour: Turniej
-        if !isFiltering(){
-            tour = self.tournaments[indexPath.row]
+        let cellTournament: Turniej
+        if !isTableFiltered(){
+            cellTournament = self.tournaments[indexPath.row]
             
         }else{
-            tour = self.filteredTournaments[indexPath.row]
+            cellTournament = self.filteredTournaments[indexPath.row]
         }
-        cell.name.text = tour.name
-        cell.photo.image = tour.photo
-        cell.state.text = tour.state
-        cell.state_photo.image = tour.state_photo
+        cell.name.text = cellTournament.name
+        cell.photo.image = cellTournament.photo
+        cell.state.text = cellTournament.state
+        cell.state_photo.image = cellTournament.state_photo
         return cell
         
     }
@@ -155,68 +141,21 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    private func isFiltering() -> Bool{
+    private func isTableFiltered() -> Bool{
         return searchController.isActive && !searchBarIsEmpty()
     }
     
-    
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
  
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        
-        guard let selectedMatchCell = sender as? TurniejTableViewCell else {
-            fatalError("Unexpected sender: \(sender)")
-        }
-        
-        guard let indexPath = tableView.indexPath(for: selectedMatchCell) else {
-            fatalError("The selected cell is not being displayed by the table")
-        }
-        // JEŻELI TURNIEJ OCZEKUJE NA ROZPOCZĘCIE I UŻYTKOWNIK NIE JEST ZALOGOWANY PRZERWIJ PRZEJŚCIE
-        if(tournaments[indexPath.row].state == "Oczekujący" && KeychainWrapper.standard.string(forKey: "USER_PASS") == nil){
-            return false
-        }
         return true
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
         super.prepare(for: segue, sender: sender)
         
         guard let matchDetailViewController = segue.destination as? MeczeTableViewController else {
@@ -230,43 +169,6 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         guard let indexPath = tableView.indexPath(for: selectedMatchCell) else {
             fatalError("The selected cell is not being displayed by the table")
         }
-        // JEŻELI TURNIEJ NIE JEST ROZPOCZĘTY ZAPYTAJ, CZY NALEŻY ROZPOCZĄĆ
-        if(tournaments[indexPath.row].state == "Oczekujący" && !(KeychainWrapper.standard.string(forKey: "USER_LOGIN")?.isEmpty)!){
-            let alertController = UIAlertController(title: NSLocalizedString("tournamentStartTitle", comment: "tournament alert start title"), message: NSLocalizedString("tournamentStartMessage", comment: "message for tournament start alert"), preferredStyle: UIAlertController.Style.alert)
-            let cancelAction = UIAlertAction(title: NSLocalizedString("cancelAction", comment: "Cancelling action of an alert"), style: UIAlertAction.Style.cancel)
-            let okAction = UIAlertAction(title: NSLocalizedString("okString", comment: "Ok string alert action"), style: UIAlertAction.Style.default, handler:{
-                (alert) in
-                let semaphore = DispatchSemaphore(value: 1)
-                
-                // TODO: DO POPRAWKI NA SERWER KORMORANSYSTEM
-                
-                Alamofire.request("https://gniewko717:04IgRjZLdPLL3RoVza7TWz3Ly3BukWnWtstBoGlf@api.challonge.com/v1/tournaments/\(self.tournaments[indexPath.row].id)/start.json", method: .post).response{ response in
-                    print("Request: \(response.request)")
-                    print("Response: \(response.response)")
-                    print("Error: \(response.error)")
-                    
-                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                        print("Data: \(utf8Text)")
-                        
-                    }
-                }
-                // PRZEŁADUJ TURNIEJE
-                self.tournaments.removeAll()
-                semaphore.wait()
-                self.self.loadChallongeTournaments()
-                semaphore.signal()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            })
-            
-            
-            alertController.addAction(cancelAction)
-            //alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-            return
-            
-        }
         
         let selectedTournament = tournaments[indexPath.row]
         matchDetailViewController.tournament = selectedTournament
@@ -274,22 +176,25 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
  
     
     //MARK: Private Methods
-    private func loadChallongeTournaments(){
+    private func loadTournaments(){
+        
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         
-        API().loadTournaments(callback: {(tours, error) in
+        API.loadTournaments(callback: {(tours, error) in
             guard error == nil && tours != nil else{
                 DispatchQueue.main.async {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
+                print(error)
                 return
             }
             
+            self.tournaments.removeAll()
             self.tournaments = tours!
-            
             self.tournaments.sort(by: {$0.weight! > $1.weight!})
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
