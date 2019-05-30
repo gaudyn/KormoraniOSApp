@@ -9,7 +9,6 @@
 import UIKit
 import Foundation
 import SwiftKeychainWrapper
-import Alamofire
 import os.log
 
 class MeczeTableViewController: UITableViewController {
@@ -93,6 +92,9 @@ class MeczeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if KeychainWrapper.standard.string(forKey: "USER_LOGIN") == nil{
+            return []
+        }
         
         let changeMatchToInProgress = UITableViewRowAction(style: .normal, title: NSLocalizedString("stateProgress", comment: "Match is in progress")) { action, index in
             
