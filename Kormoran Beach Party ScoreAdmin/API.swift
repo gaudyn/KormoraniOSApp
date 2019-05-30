@@ -41,10 +41,12 @@ class API {
             if let httpResponse = response as? HTTPURLResponse{
                 if httpResponse.statusCode != 200{
                     callback(nil, APIError(kind: .invalidStatusCode))
+                    return
                 }
             }
             if error != nil{
                 callback(nil, error)
+                return
             }
             else{
                 if let content = data{
@@ -71,6 +73,7 @@ class API {
                             }
                         }
                         callback(tournaments, nil)
+                        return
                     }
                 }
             }
@@ -94,9 +97,11 @@ class API {
             DispatchQueue.global(qos: .utility).async {
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
                     callback(nil, APIError(kind: .invalidStatusCode))
+                    return
                 }
                 if error != nil{
                     callback(nil, error)
+                    return
                 }
                     
                 else{
@@ -124,6 +129,7 @@ class API {
                                 }
                             }
                             callback(matches, nil)
+                            return
                         }
                     }
                 }
@@ -159,6 +165,7 @@ class API {
             DispatchQueue.global(qos: .utility).async {
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200{
                     callback(APIError(kind: .invalidStatusCode))
+                    return
                 }
                 guard error == nil else{
                     callback(error)
@@ -204,6 +211,7 @@ class API {
                 if let content = data, let utf8Text = String(data: content, encoding: .utf8){
                     if(utf8Text.contains("\"error\":true")){
                         callback(APIError(kind: .invalidLoginOrPass))
+                        return
                     }
                 }
                 callback(nil)
