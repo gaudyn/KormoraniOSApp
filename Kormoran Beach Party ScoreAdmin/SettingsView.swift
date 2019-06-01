@@ -34,6 +34,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     //Social medias
     @IBOutlet var FacebookTap: UITapGestureRecognizer!
     
+    @IBOutlet var PrivacyTap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -238,6 +239,10 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
         let fbURL = URL(string: "https://www.facebook.com/events/547305495801058/")
         UIApplication.shared.open(fbURL! , options: [:], completionHandler: nil)
         
+    }
+    @IBAction func privacyTapped(_ sender: UITapGestureRecognizer) {
+        let privacyURL = URL(string: "https://mmaterek.nazwa.pl/kormoran/privacy_pl.html")
+        UIApplication.shared.open(privacyURL! , options: [:], completionHandler: nil)
     }
 }
 

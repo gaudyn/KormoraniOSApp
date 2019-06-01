@@ -183,6 +183,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="jcW-JB-NxB" appends="YES" id="3Bd-eg-hD0"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -198,6 +201,7 @@
                         <outlet property="FacebookTap" destination="ajg-UE-8MU" id="rps-J4-Pz6"/>
                         <outlet property="NameDataTap" destination="Clv-R1-YMK" id="E1y-P9-OaY"/>
                         <outlet property="PictureTap" destination="kL5-9z-fEP" id="Ccd-9m-NdW"/>
+                        <outlet property="PrivacyTap" destination="jcW-JB-NxB" id="P07-ip-5Zo"/>
                         <outlet property="UserData" destination="jah-dw-JmK" id="eYM-vm-O7a"/>
                         <outlet property="UserPicture" destination="eIq-Qi-S8b" id="imT-K4-rpF"/>
                         <outlet property="UserTeams" destination="Kvj-vr-H9w" id="49d-xj-FFK"/>
@@ -218,6 +222,11 @@
                 <tapGestureRecognizer id="ajg-UE-8MU">
                     <connections>
                         <action selector="facebookTapped:" destination="bJ6-r0-8CY" id="EhT-qb-MQC"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jcW-JB-NxB">
+                    <connections>
+                        <action selector="privacyTapped:" destination="bJ6-r0-8CY" id="tWg-MR-Uw2"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
