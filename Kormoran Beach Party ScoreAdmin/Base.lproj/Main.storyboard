@@ -61,9 +61,6 @@
                                                         <constraint firstAttribute="width" constant="64" id="2IR-JJ-nRe"/>
                                                         <constraint firstAttribute="height" secondItem="eIq-Qi-S8b" secondAttribute="width" multiplier="1:1" id="PWm-fB-4za"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="kL5-9z-fEP" appends="YES" id="lx5-Cu-vNy"/>
-                                                    </connections>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
