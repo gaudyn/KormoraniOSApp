@@ -17,7 +17,7 @@ struct Settings: Codable{
     var autoSetMatchWinner: Bool
 }
 
-class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingsView: UITableViewController, UINavigationControllerDelegate {
     
     @IBOutlet var PictureTap: UITapGestureRecognizer!
     @IBOutlet var NameDataTap: UITapGestureRecognizer!
@@ -94,7 +94,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
         // Dispose of any resources that can be recreated.
     }
     
-    
+    /*
     @IBAction func PictureTapped(_ sender: UITapGestureRecognizer) {
         let imagePickerController = UIImagePickerController()
         
@@ -132,7 +132,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
+    */
     @IBAction func LoginTapped(_ sender: UITapGestureRecognizer) {
         
         if UserLogged{
@@ -245,7 +245,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
         UIApplication.shared.open(privacyURL! , options: [:], completionHandler: nil)
     }
 }
-
+/*
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
 	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
@@ -255,7 +255,7 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
 	return input.rawValue
 }
-
+*/
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
 	guard let input = input else { return nil }
@@ -266,3 +266,4 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
 	return input.rawValue
 }
+
