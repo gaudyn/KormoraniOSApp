@@ -241,7 +241,7 @@ class SettingsView: UITableViewController, UINavigationControllerDelegate {
         
     }
     @IBAction func privacyTapped(_ sender: UITapGestureRecognizer) {
-        let privacyURL = URL(string: "https://mmaterek.nazwa.pl/kormoran/privacy_pl.html")
+        let privacyURL = URL(string: "https://mmaterek.nazwa.pl/kormoran/support/privacy_pl.html")
         UIApplication.shared.open(privacyURL! , options: [:], completionHandler: nil)
     }
 }
