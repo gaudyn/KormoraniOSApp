@@ -29,7 +29,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         definesPresentationContext = true
         
         if isInternetConnection(){
-            loadTournaments();
+            loadTournaments(ref: false);
         }else{
             noInternetConnectionAlert()
         }
@@ -65,11 +65,11 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     
     @objc func refreshTableContents(){
         if isInternetConnection(){
-            loadTournaments()
+            loadTournaments(ref: true)
         }else{
             noInternetConnectionAlert()
+            refresher.endRefreshing()
         }
-        refresher.endRefreshing()
     }
     
     func isInternetConnection() -> Bool{
@@ -175,7 +175,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
  
     
     //MARK: Private Methods
-    private func loadTournaments(){
+    private func loadTournaments(ref: Bool){
         
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -197,6 +197,9 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                if ref{
+                    self.refresher.endRefreshing()
+                }
             }
             })
     }
