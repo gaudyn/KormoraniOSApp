@@ -10,7 +10,6 @@
 		C34E9468209F7546005F0500 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34E9467209F7546005F0500 /* SettingsView.swift */; };
 		C37BE73020AF699200C1F749 /* Disk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37BE72F20AF699200C1F749 /* Disk.framework */; };
 		C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */; };
-		C3A2A40220279626001FED80 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C39B34B120266CA60031C435 /* Alamofire.framework */; };
 		C3A2A40420279626001FED80 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */; };
 		C3A3C426222B403F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
 		C3A3C451222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */; };
@@ -43,12 +42,11 @@
 /* Begin PBXFileReference section */
 		C34E9467209F7546005F0500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C36C1268222B2CBE00AE8760 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		C375165A22A2ED3D0021D236 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		C37BE72F20AF699200C1F749 /* Disk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Disk.framework; path = Carthage/Build/iOS/Disk.framework; sourceTree = "<group>"; };
 		C38370A81F37D706005A46D6 /* Kormoran Beach Party.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Kormoran Beach Party.entitlements"; sourceTree = "<group>"; };
 		C38A02C5229DB16600F194E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		C38A02C7229DB18800F194E0 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetaleMeczuViewController.swift; sourceTree = "<group>"; };
-		C39B34B120266CA60031C435 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
 		C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kormoran Beach Party Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kormoran_Beach_Party_Tests.swift; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 			files = (
 				C37BE73020AF699200C1F749 /* Disk.framework in Frameworks */,
 				C3A2A40420279626001FED80 /* SwiftKeychainWrapper.framework in Frameworks */,
-				C3A2A40220279626001FED80 /* Alamofire.framework in Frameworks */,
 				C3B9258220CDC8C400FDA111 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,7 +108,6 @@
 				C3B9258120CDC8C400FDA111 /* CryptoSwift.framework */,
 				C37BE72F20AF699200C1F749 /* Disk.framework */,
 				C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */,
-				C39B34B120266CA60031C435 /* Alamofire.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -221,7 +217,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Keychain = {
 								enabled = 0;
@@ -282,14 +278,12 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Disk.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 			);
 			name = Carthage;
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
 				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Disk.framework",
 				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
@@ -345,7 +339,7 @@
 			children = (
 				C3DA0D9F1F09752E00D99CC4 /* Base */,
 				C38A02C5229DB16600F194E0 /* en */,
-				C38A02C7229DB18800F194E0 /* pl */,
+				C375165A22A2ED3D0021D236 /* pl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -457,10 +451,10 @@
 				);
 				INFOPLIST_FILE = "Kormoran Beach Party ScoreAdmin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaudyn.kormoran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Testing;
 		};
@@ -672,10 +666,10 @@
 				);
 				INFOPLIST_FILE = "Kormoran Beach Party ScoreAdmin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaudyn.kormoran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -702,10 +696,10 @@
 				);
 				INFOPLIST_FILE = "Kormoran Beach Party ScoreAdmin/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaudyn.kormoran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

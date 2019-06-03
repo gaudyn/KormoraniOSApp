@@ -39,20 +39,24 @@ class Turniej{
             //fatalError("Nie można stworzyć turnieju - brak gry")
             return nil
         }
-        //USTAWIANIE MINIATURKI GRY
+        
+        
         if(game == "handball"){
-            self.photo = UIImage(named: "Handball")
+            self.photo = #imageLiteral(resourceName: "Handball")
         }
         if(game == "basketball"){
-            self.photo = UIImage(named: "Basketball")
+            self.photo = #imageLiteral(resourceName: "Basketball")
         }
         if(game == "volleyball"){
-            self.photo = UIImage(named: "Volleyball")
+            self.photo = #imageLiteral(resourceName: "Volleyball")
         }
         if(game == "soccer"){
             self.photo = #imageLiteral(resourceName: "Football")
         }
-        //USTAWIANIE KOLORU TURNIEJU I JEGO WAGI (POTRZEBNE DO SORTOWANIA)
+        if(game == "tug_of_war"){
+            self.photo = #imageLiteral(resourceName: "Tug")
+        }
+        
         if(state == NSLocalizedString("stateReady", comment: "Tournament is ready to play")){
             self.state_photo = UIImage(named: "Circle-Green")
             weight = 1

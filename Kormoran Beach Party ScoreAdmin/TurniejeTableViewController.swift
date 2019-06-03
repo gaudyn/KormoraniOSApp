@@ -9,7 +9,6 @@
 import UIKit
 import Foundation
 import os.log
-import Alamofire
 import SwiftKeychainWrapper
 
 class TurniejeTableViewController: UITableViewController, UISearchResultsUpdating {

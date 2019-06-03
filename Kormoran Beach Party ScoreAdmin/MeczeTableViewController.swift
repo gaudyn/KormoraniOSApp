@@ -9,7 +9,6 @@
 import UIKit
 import Foundation
 import SwiftKeychainWrapper
-import Alamofire
 import os.log
 
 class MeczeTableViewController: UITableViewController {
@@ -44,16 +43,19 @@ class MeczeTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if matches.count > 0{
+            tableView.tableFooterView = .none
+            tableView.separatorStyle = .singleLine
             return 1
+        }else{
+            let bgLabel = UILabel();
+            bgLabel.text = NSLocalizedString("tableViewEmpty", comment: "Empty table view")
+            bgLabel.textColor = .gray
+            bgLabel.textAlignment = .center
+            bgLabel.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: tableView.bounds.size.width, height: tableView.bounds.size.height/2))
+            tableView.tableFooterView = bgLabel
+            tableView.separatorStyle = .none
+            return 0
         }
-        let bgLabel = UILabel();
-        bgLabel.text = NSLocalizedString("tableViewEmpty", comment: "Empty table view")
-        bgLabel.textColor = .gray
-        bgLabel.textAlignment = .center
-        bgLabel.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: tableView.bounds.size.width, height: tableView.bounds.size.height/2))
-        tableView.tableFooterView = bgLabel
-        tableView.separatorStyle = .none
-        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,6 +95,9 @@ class MeczeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if KeychainWrapper.standard.string(forKey: "USER_LOGIN") == nil{
+            return []
+        }
         
         let changeMatchToInProgress = UITableViewRowAction(style: .normal, title: NSLocalizedString("stateProgress", comment: "Match is in progress")) { action, index in
             

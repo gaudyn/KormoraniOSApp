@@ -8,7 +8,6 @@
 
 import UIKit
 import os.log
-import Alamofire
 import SwiftKeychainWrapper
 import Disk
 

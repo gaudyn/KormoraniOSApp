@@ -16,23 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        let center = UNUserNotificationCenter.current()
-        let options: UNAuthorizationOptions = [.badge, .sound, .alert]
-        
-        center.requestAuthorization(options: options, completionHandler: {
-            (granted, error) in
-            if !granted {
-                print("Something went wrong")
-            }
-        })
-        center.getNotificationSettings(completionHandler: {
-            (settings) in
-            if settings.authorizationStatus == .authorized{
-                application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
-            }
-        })
-        
         
         return true
     }

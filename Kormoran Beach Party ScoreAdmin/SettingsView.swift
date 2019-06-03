@@ -11,7 +11,6 @@ import SwiftKeychainWrapper
 import Foundation
 import Disk
 import CryptoSwift
-import Alamofire
 
 
 struct Settings: Codable{
@@ -35,6 +34,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
     //Social medias
     @IBOutlet var FacebookTap: UITapGestureRecognizer!
     
+    @IBOutlet var PrivacyTap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -169,7 +169,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
                 
                 let params = ["username": self.loginAlert.textFields![0].text!, "password": hash]
                 API.login(parameters: params, callback: {(error) in
-                    guard error == nil else{
+                    if error != nil{
                         print("ERROR")
                         print(error)
                         DispatchQueue.main.async {
@@ -182,9 +182,8 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
                             self.loginAlert.setValue(newMessage, forKey: "attributedMessage")
                             self.present(self.loginAlert, animated: true, completion: nil)
                         }
-                        return
-                    }
-                    DispatchQueue.main.async {
+                    }else{
+                        DispatchQueue.main.async {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         KeychainWrapper.standard.set(self.loginAlert.textFields![0].text!, forKey:"USER_LOGIN")
                         KeychainWrapper.standard.set(hash, forKey: "USER_PASS")
@@ -195,6 +194,7 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
                             fatalError("Couldn't save user's image")
                         }
                         self.switchLogin()
+                        }
                     }
                 })
                 self.viewDidAppear(true)
@@ -239,6 +239,10 @@ class SettingsView: UITableViewController, UIImagePickerControllerDelegate, UINa
         let fbURL = URL(string: "https://www.facebook.com/events/547305495801058/")
         UIApplication.shared.open(fbURL! , options: [:], completionHandler: nil)
         
+    }
+    @IBAction func privacyTapped(_ sender: UITapGestureRecognizer) {
+        let privacyURL = URL(string: "https://mmaterek.nazwa.pl/kormoran/privacy_pl.html")
+        UIApplication.shared.open(privacyURL! , options: [:], completionHandler: nil)
     }
 }
 
