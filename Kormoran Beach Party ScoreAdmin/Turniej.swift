@@ -78,4 +78,12 @@ class Turniej{
         self.id = id!
     }
     
+    static func ==(left: Turniej, right: Turniej) -> Bool{
+        if (left.name == right.name) {
+            return true
+            
+        }
+         return false
+    }
+    
 }
