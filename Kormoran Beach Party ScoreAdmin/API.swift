@@ -20,11 +20,11 @@ struct APIError: Error{
 }
 
 class API {
-    static let url = "https://mmaterek.nazwa.pl/kormoran/api/"
+    static let url = "https://code.legnica.pl/kormoran/api"
     static let subUrls = [
-        "tournaments" : "tournaments.php",
-        "matches" : "matches.php",
-        "administrate" : "administrate.php"
+        "tournaments" : "/tournaments.php",
+        "matches" : "/matches.php",
+        "administrate" : "/administrate.php"
     ]
     
     class func loadTournaments(callback: @escaping (_ turnieje: [Turniej]?, _ error: Error?) -> Void){
