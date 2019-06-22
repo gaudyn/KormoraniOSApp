@@ -15,7 +15,6 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
 
     var tournaments = [Turniej]()
     var filteredTournaments = [Turniej]()
-    var favoriteTournaments = [Turniej]()
     var refresher: UIRefreshControl!
     var searchController: UISearchController!
     
@@ -30,7 +29,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         definesPresentationContext = true
         
         if isInternetConnection(){
-            loadTournaments(ref: false);
+            loadTournaments();
         }else{
             noInternetConnectionAlert()
         }
@@ -66,11 +65,11 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     
     @objc func refreshTableContents(){
         if isInternetConnection(){
-            loadTournaments(ref: true)
+            loadTournaments()
         }else{
             noInternetConnectionAlert()
-            refresher.endRefreshing()
         }
+        refresher.endRefreshing()
     }
     
     func isInternetConnection() -> Bool{
@@ -94,9 +93,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         if tournaments.count > 0 {
             tableView.separatorStyle = .singleLine
             tableView.tableFooterView = .none
-            
-            return 2
-            
+            return 1
         }else{
             
             let bgLabel = UILabel();
@@ -110,29 +107,11 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         }
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
-            if favoriteTournaments.count == 0{
-                return ""
-            }
-            return "Ulubione turnieje"
-        }else{
-            return "Wszystkie turnieje";
-        }
-    }
-    
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isTableFiltered(){
             return filteredTournaments.count
         }else{
-            switch section{
-            case 0:
-                return favoriteTournaments.count
-            default:
-                return tournaments.count
-            
-            }
+            return tournaments.count
         }
     }
 
@@ -144,11 +123,8 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
         }
         let cellTournament: Turniej
         if !isTableFiltered(){
-            if favoriteTournaments.count > 0 && indexPath.section == 0{
-                cellTournament = self.favoriteTournaments[indexPath.row]
-            }else{
-                cellTournament = self.tournaments[indexPath.row]
-            }
+            cellTournament = self.tournaments[indexPath.row]
+            
         }else{
             cellTournament = self.filteredTournaments[indexPath.row]
         }
@@ -171,34 +147,6 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let addToFavorites = UITableViewRowAction(style: .default, title: "Ulubiony", handler: { action, index in
-            self.favoriteTournaments.append(self.tournaments[index.row])
-            self.tournaments.remove(at: index.row)
-            self.tableView.moveRow(at: index, to: IndexPath(row: self.favoriteTournaments.count-1, section: 0))
-        })
-        
-        let removeFromFavorites = UITableViewRowAction(style: .destructive, title: "Usuń z ulubionych", handler: { action, index in
-            let selected = self.favoriteTournaments[index.row]
-            self.tournaments.append(selected)
-            self.tournaments.sort(by: {$0.weight! > $1.weight!})
-            self.favoriteTournaments.remove(at: index.row)
-            self.tableView.moveRow(at: index, to: IndexPath(row: self.tournaments.firstIndex(where: { tournament in
-                return Bool(tournament == selected)
-            })!, section: 1))
-        })
-        addToFavorites.backgroundColor = .orange
-        removeFromFavorites.backgroundColor = .red
-        
-        
-        if indexPath.section == 0{
-            return [removeFromFavorites]
-        }else{
-            return [addToFavorites]
-        }
-    }
  
     // MARK: - Navigation
 
@@ -213,11 +161,11 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
             fatalError("Unexpected destination: \(segue.destination)")
         }
         
-        guard let selectedTournamentCell = sender as? TurniejTableViewCell else {
+        guard let selectedMatchCell = sender as? TurniejTableViewCell else {
             fatalError("Unexpected sender: \(sender)")
         }
         
-        guard let indexPath = tableView.indexPath(for: selectedTournamentCell) else {
+        guard let indexPath = tableView.indexPath(for: selectedMatchCell) else {
             fatalError("The selected cell is not being displayed by the table")
         }
         
@@ -227,7 +175,7 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
  
     
     //MARK: Private Methods
-    private func loadTournaments(ref: Bool){
+    private func loadTournaments(){
         
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -249,9 +197,6 @@ class TurniejeTableViewController: UITableViewController, UISearchResultsUpdatin
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                if ref{
-                    self.refresher.endRefreshing()
-                }
             }
             })
     }
