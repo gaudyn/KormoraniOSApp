@@ -12,6 +12,8 @@
 		C3905CA11F13DAC00019DAD1 /* DetaleMeczuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */; };
 		C3A2A40420279626001FED80 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */; };
 		C3A3C426222B403F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
+		C3A3C451222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */; };
+		C3A3C459222B457F00C67CA3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C1268222B2CBE00AE8760 /* API.swift */; };
 		C3B9258220CDC8C400FDA111 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B9258120CDC8C400FDA111 /* CryptoSwift.framework */; };
 		C3DA0D991F09752E00D99CC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DA0D981F09752E00D99CC4 /* AppDelegate.swift */; };
 		C3DA0DA01F09752E00D99CC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3DA0D9E1F09752E00D99CC4 /* Main.storyboard */; };
@@ -27,14 +29,28 @@
 		C3F05A5A1F17A15C00C2333C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F05A591F17A15C00C2333C /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C3A3C453222B455400C67CA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3DA0D8D1F09752D00D99CC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3DA0D941F09752E00D99CC4;
+			remoteInfo = "Kormoran Beach Party";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		C34E9467209F7546005F0500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C36C1268222B2CBE00AE8760 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C375165A22A2ED3D0021D236 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		C37BE72F20AF699200C1F749 /* Disk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Disk.framework; path = Carthage/Build/iOS/Disk.framework; sourceTree = "<group>"; };
+		C38370A81F37D706005A46D6 /* Kormoran Beach Party.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Kormoran Beach Party.entitlements"; sourceTree = "<group>"; };
 		C38A02C5229DB16600F194E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C3905CA01F13DAC00019DAD1 /* DetaleMeczuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetaleMeczuViewController.swift; sourceTree = "<group>"; };
 		C3A2A40320279626001FED80 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
+		C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kormoran Beach Party Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kormoran_Beach_Party_Tests.swift; sourceTree = "<group>"; };
+		C3A3C452222B455400C67CA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3A3E0281F71AC8400453116 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C3B9258120CDC8C400FDA111 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		C3DA0D951F09752E00D99CC4 /* Kormoran Beach Party.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kormoran Beach Party.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +73,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C3A3C44B222B455400C67CA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3DA0D921F09752E00D99CC4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C3A3C44F222B455400C67CA3 /* Kormoran Beach Party Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C3A3C450222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift */,
+				C3A3C452222B455400C67CA3 /* Info.plist */,
+			);
+			path = "Kormoran Beach Party Tests";
+			sourceTree = "<group>";
+		};
 		C3A3E02C1F71B8F200453116 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,7 +115,9 @@
 		C3DA0D8C1F09752D00D99CC4 = {
 			isa = PBXGroup;
 			children = (
+				C38370A81F37D706005A46D6 /* Kormoran Beach Party.entitlements */,
 				C3DA0D971F09752E00D99CC4 /* Kormoran Beach Party ScoreAdmin */,
+				C3A3C44F222B455400C67CA3 /* Kormoran Beach Party Tests */,
 				C3DA0D961F09752E00D99CC4 /* Products */,
 				C3A3E02C1F71B8F200453116 /* Frameworks */,
 			);
@@ -93,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				C3DA0D951F09752E00D99CC4 /* Kormoran Beach Party.app */,
+				C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +158,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C3A3C44D222B455400C67CA3 /* Kormoran Beach Party Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3A3C455222B455400C67CA3 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party Tests" */;
+			buildPhases = (
+				C3A3C44A222B455400C67CA3 /* Sources */,
+				C3A3C44B222B455400C67CA3 /* Frameworks */,
+				C3A3C44C222B455400C67CA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3A3C454222B455400C67CA3 /* PBXTargetDependency */,
+			);
+			name = "Kormoran Beach Party Tests";
+			productName = "Kormoran Beach Party Tests";
+			productReference = C3A3C44E222B455400C67CA3 /* Kormoran Beach Party Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C3DA0D941F09752E00D99CC4 /* Kormoran Beach Party */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3DA0DBF1F09752E00D99CC4 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party" */;
@@ -151,6 +204,12 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Kormoran Beach Party Sekcja Informatyczna";
 				TargetAttributes = {
+					C3A3C44D222B455400C67CA3 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = AV9DM695WT;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C3DA0D941F09752E00D99CC4;
+					};
 					C3DA0D941F09752E00D99CC4 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AV9DM695WT;
@@ -186,11 +245,19 @@
 			projectRoot = "";
 			targets = (
 				C3DA0D941F09752E00D99CC4 /* Kormoran Beach Party */,
+				C3A3C44D222B455400C67CA3 /* Kormoran Beach Party Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C3A3C44C222B455400C67CA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3DA0D931F09752E00D99CC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -229,6 +296,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C3A3C44A222B455400C67CA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3A3C459222B457F00C67CA3 /* API.swift in Sources */,
+				C3A3C451222B455400C67CA3 /* Kormoran_Beach_Party_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3DA0D911F09752E00D99CC4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,6 +324,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C3A3C454222B455400C67CA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3DA0D941F09752E00D99CC4 /* Kormoran Beach Party */;
+			targetProxy = C3A3C453222B455400C67CA3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C3DA0D9E1F09752E00D99CC4 /* Main.storyboard */ = {
@@ -373,6 +457,76 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Testing;
+		};
+		C3A3C456222B455400C67CA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Kormoran Beach Party Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach-Party-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kormoran Beach Party.app/Kormoran Beach Party";
+			};
+			name = Debug;
+		};
+		C3A3C457222B455400C67CA3 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Kormoran Beach Party Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach-Party-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kormoran Beach Party.app/Kormoran Beach Party";
+			};
+			name = Testing;
+		};
+		C3A3C458222B455400C67CA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AV9DM695WT;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Kormoran Beach Party Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "Kormoran.Kormoran-Beach-Party-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kormoran Beach Party.app/Kormoran Beach Party";
+			};
+			name = Release;
 		};
 		C3DA0DBD1F09752E00D99CC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -552,6 +706,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C3A3C455222B455400C67CA3 /* Build configuration list for PBXNativeTarget "Kormoran Beach Party Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3A3C456222B455400C67CA3 /* Debug */,
+				C3A3C457222B455400C67CA3 /* Testing */,
+				C3A3C458222B455400C67CA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3DA0D901F09752D00D99CC4 /* Build configuration list for PBXProject "Kormoran Beach Party" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

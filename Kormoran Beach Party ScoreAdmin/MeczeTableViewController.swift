@@ -81,7 +81,7 @@ class MeczeTableViewController: UITableViewController {
             }
         }
         
-        if(KeychainWrapper.standard.string(forKey: "USER_LOGIN") != nil && matches[indexPath.row].state != "finished"){
+        if(KeychainWrapper.standard.string(forKey: "USER_LOGIN") != nil){
             cell.accessoryType = .disclosureIndicator
             cell.isUserInteractionEnabled = true
         }else{
